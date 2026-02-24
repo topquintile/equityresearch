@@ -1,0 +1,1770 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Equity Research · Coverage Initiation Process</title>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/mermaid/10.6.1/mermaid.min.js"></script>
+<style>
+@import url('https://fonts.googleapis.com/css2?family=Bebas+Neue&family=DM+Serif+Display:ital@0;1&family=JetBrains+Mono:wght@300;400;500;700&family=Lora:ital,wght@0,400;0,500;1,400&display=swap');
+
+:root {
+  --bg:         #07090d;
+  --surface:    #0d1117;
+  --surface2:   #131922;
+  --surface3:   #1a2333;
+  --amber:      #e8a020;
+  --amber-dim:  #b07818;
+  --amber-pale: #2a1e08;
+  --green:      #16a34a;
+  --green-dim:  #14532d;
+  --red:        #dc2626;
+  --red-dim:    #7f1d1d;
+  --blue:       #2563eb;
+  --blue-dim:   #1e3a5f;
+  --cyan:       #0891b2;
+  --purple:     #7c3aed;
+  --text:       #e2d9cc;
+  --text-dim:   #8a7f74;
+  --text-faint: #3d3832;
+  --rule:       #1e2a38;
+  --mono:       'JetBrains Mono', monospace;
+  --serif:      'Lora', serif;
+  --display:    'DM Serif Display', serif;
+  --headline:   'Bebas Neue', sans-serif;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+
+body {
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--serif);
+  font-size: 13.5px;
+  line-height: 1.65;
+  min-height: 100vh;
+}
+
+/* ────── MASTHEAD ────── */
+.masthead {
+  background: linear-gradient(135deg, #07090d 0%, #0d1520 50%, #0a0f18 100%);
+  padding: 52px 60px 40px;
+  border-bottom: 1px solid var(--amber-dim);
+  position: relative;
+  overflow: hidden;
+}
+.masthead::before {
+  content: '';
+  position: absolute;
+  top: -60px; right: -60px;
+  width: 400px; height: 400px;
+  background: radial-gradient(circle, rgba(232,160,32,.08) 0%, transparent 70%);
+  pointer-events: none;
+}
+.masthead::after {
+  content: '';
+  position: absolute;
+  bottom: 0; left: 0; right: 0;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--amber), transparent);
+}
+.ticker-bar {
+  font-family: var(--mono);
+  font-size: 9px;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+  color: var(--amber);
+  margin-bottom: 18px;
+  display: flex;
+  align-items: center;
+  gap: 16px;
+}
+.ticker-bar::before {
+  content: '▶';
+  font-size: 7px;
+  color: var(--amber-dim);
+}
+.ticker-sep { color: var(--text-faint); }
+
+.mh-title {
+  font-family: var(--headline);
+  font-size: clamp(36px, 5vw, 72px);
+  letter-spacing: 2px;
+  line-height: .95;
+  color: var(--text);
+}
+.mh-title .hl { color: var(--amber); }
+.mh-title .it { font-family: var(--display); font-style: italic; font-size: .75em; color: var(--text-dim); }
+
+.mh-sub {
+  margin-top: 16px;
+  font-size: 12.5px;
+  color: var(--text-dim);
+  max-width: 680px;
+  font-family: var(--mono);
+  font-weight: 300;
+  line-height: 1.7;
+}
+
+.mh-meta {
+  margin-top: 24px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+.meta-chip {
+  font-family: var(--mono);
+  font-size: 9.5px;
+  letter-spacing: 1.5px;
+  padding: 5px 13px;
+  border: 1px solid var(--amber-dim);
+  color: var(--amber);
+  text-transform: uppercase;
+  background: var(--amber-pale);
+}
+
+/* ────── ROLE LEGEND ────── */
+.role-strip {
+  background: var(--surface);
+  padding: 0 60px;
+  display: flex;
+  flex-wrap: wrap;
+  border-bottom: 1px solid var(--rule);
+}
+.role-item {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  padding: 11px 20px 11px 0;
+  font-family: var(--mono);
+  font-size: 9.5px;
+  letter-spacing: .5px;
+  color: var(--text-dim);
+  border-right: 1px solid var(--rule);
+  padding-right: 20px;
+  margin-right: 0;
+}
+.role-item:last-child { border-right: none; }
+.rdot {
+  width: 10px; height: 10px;
+  border-radius: 50%;
+  flex-shrink: 0;
+}
+
+/* ────── TAB NAV ────── */
+.tab-nav {
+  background: var(--surface);
+  display: flex;
+  flex-wrap: wrap;
+  padding: 0 60px;
+  border-bottom: 2px solid var(--amber-dim);
+  position: sticky;
+  top: 0;
+  z-index: 200;
+}
+.tab-btn {
+  font-family: var(--mono);
+  font-size: 9.5px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--text-faint);
+  padding: 15px 20px;
+  cursor: pointer;
+  border-bottom: 2px solid transparent;
+  margin-bottom: -2px;
+  transition: all .18s;
+  user-select: none;
+  white-space: nowrap;
+}
+.tab-btn:hover { color: var(--amber-dim); }
+.tab-btn.active {
+  color: var(--amber);
+  border-bottom-color: var(--amber);
+}
+
+/* ────── CONTENT ────── */
+.tab-content { display: none; }
+.tab-content.active { display: block; }
+
+.page { max-width: 1440px; margin: 0 auto; padding: 40px 60px 80px; }
+
+/* ────── SECTION HEADS ────── */
+.sh {
+  display: flex;
+  align-items: baseline;
+  gap: 16px;
+  margin-bottom: 6px;
+  padding-top: 48px;
+  border-top: 1px solid var(--rule);
+}
+.sh:first-child { border-top: none; padding-top: 0; }
+.sh-num {
+  font-family: var(--mono);
+  font-size: 10px;
+  color: var(--amber-dim);
+  border: 1px solid var(--amber-dim);
+  padding: 3px 10px;
+  letter-spacing: 1px;
+}
+.sh h2 {
+  font-family: var(--headline);
+  font-size: 28px;
+  letter-spacing: 1.5px;
+  color: var(--text);
+}
+.sh-sub {
+  color: var(--text-dim);
+  font-size: 12px;
+  margin-bottom: 24px;
+  max-width: 900px;
+  padding-left: 14px;
+  border-left: 2px solid var(--amber-dim);
+  font-family: var(--mono);
+  font-weight: 300;
+  line-height: 1.7;
+}
+
+/* ────── DIAGRAM BLOCKS ────── */
+.diag-wrap {
+  background: var(--surface);
+  border: 1px solid var(--rule);
+  border-top: 2px solid var(--amber-dim);
+  padding: 28px;
+  margin-bottom: 20px;
+  overflow-x: auto;
+}
+.diag-label {
+  font-family: var(--mono);
+  font-size: 9px;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: var(--text-faint);
+  margin-bottom: 18px;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+}
+.diag-label::after { content: ''; flex: 1; height: 1px; background: var(--rule); }
+
+/* ────── TABLE ────── */
+.data-table {
+  width: 100%;
+  border-collapse: collapse;
+  font-size: 11.5px;
+  margin-bottom: 24px;
+  font-family: var(--mono);
+}
+.data-table th {
+  background: var(--surface2);
+  color: var(--amber);
+  font-size: 8.5px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  padding: 10px 14px;
+  text-align: left;
+  font-weight: 500;
+  border-bottom: 1px solid var(--amber-dim);
+}
+.data-table td {
+  padding: 9px 14px;
+  border-bottom: 1px solid var(--rule);
+  vertical-align: top;
+  color: var(--text);
+  font-size: 11px;
+}
+.data-table tr:hover td { background: var(--surface2); }
+.data-table tr:nth-child(even) td { background: rgba(13,17,23,.5); }
+
+.ptag {
+  display: inline-block;
+  font-family: var(--mono);
+  font-size: 8.5px;
+  padding: 2px 7px;
+  border-radius: 1px;
+  margin: 1px 2px;
+  letter-spacing: .5px;
+  font-weight: 500;
+}
+/* ── Role badges: CBF palette aligned to PPTX & RACI matrix ── */
+.p-analyst  { background: #0d2233; color: #4da8e0; border: 1px solid #0072b2; }   /* Lead Analyst        #0072B2 */
+.p-assoc    { background: #2a1e00; color: #e69f00; border: 1px solid #7a5500; }   /* Associate           #E69F00 */
+.p-dir      { background: #0d2233; color: #7fcbf5; border: 1px solid #2a6a9a; }   /* Research Director   #56B4E9 */
+.p-sup      { background: #003326; color: #00cc96; border: 1px solid #009e73; }   /* Supervisory Analyst #009E73 */
+.p-comp     { background: #2a2700; color: #c8b800; border: 1px solid #7a6d00; }   /* Compliance          #F0E442 */
+.p-sales    { background: #2a1200; color: #d55e00; border: 1px solid #7a3300; }   /* Sales Force         #D55E00 */
+.p-prod     { background: #2a1220; color: #cc79a7; border: 1px solid #7a3a60; }   /* Production/Layout   #CC79A7 */
+.p-pm       { background: #1a1e2a; color: #98a2b3; border: 1px solid #3a4055; }   /* Portfolio Mgr       #667085 */
+/* Legacy aliases kept for diagram compatibility */
+.p-ib       { background: #0d2233; color: #7fcbf5; border: 1px solid #2a6a9a; }   /* IB → Research Dir blue */
+.p-mgmt     { background: #1a1e2a; color: #98a2b3; border: 1px solid #3a4055; }   /* Mgmt/IR → slate */
+.p-trade    { background: #003326; color: #00cc96; border: 1px solid #009e73; }   /* Trading → teal */
+
+/* ────── DELIVERABLE CARDS ────── */
+.del-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 1px;
+  background: var(--rule);
+  border: 1px solid var(--rule);
+  margin-bottom: 24px;
+}
+.del-card {
+  background: var(--surface);
+  padding: 16px 18px;
+}
+.del-card .dc-phase {
+  font-family: var(--mono);
+  font-size: 8px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  color: var(--amber-dim);
+  margin-bottom: 6px;
+}
+.del-card .dc-name {
+  font-family: var(--display);
+  font-size: 15px;
+  color: var(--text);
+  margin-bottom: 4px;
+  line-height: 1.2;
+}
+.del-card .dc-desc {
+  font-size: 10.5px;
+  color: var(--text-dim);
+  font-family: var(--mono);
+  font-weight: 300;
+  line-height: 1.5;
+}
+.del-card.highlight { border-left: 2px solid var(--amber); }
+
+/* ────── CALLOUT ────── */
+.callout {
+  background: var(--amber-pale);
+  border-left: 3px solid var(--amber);
+  padding: 12px 18px;
+  font-size: 11.5px;
+  color: var(--text-dim);
+  margin-top: 10px;
+  font-family: var(--mono);
+  font-weight: 300;
+  line-height: 1.65;
+}
+.callout strong { color: var(--amber); font-weight: 500; }
+
+/* ────── 2-COL ────── */
+.two-up {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 20px;
+  margin-bottom: 20px;
+}
+@media(max-width:960px){ .two-up{ grid-template-columns:1fr; } }
+
+/* ────── REPORT ANATOMY ────── */
+.report-section {
+  background: var(--surface);
+  border: 1px solid var(--rule);
+  border-left: 3px solid var(--amber-dim);
+  padding: 14px 18px;
+  margin-bottom: 8px;
+}
+.rs-header {
+  display: flex;
+  align-items: baseline;
+  gap: 12px;
+  margin-bottom: 5px;
+}
+.rs-num {
+  font-family: var(--mono);
+  font-size: 9px;
+  color: var(--amber-dim);
+  letter-spacing: 1px;
+  min-width: 28px;
+}
+.rs-title {
+  font-family: var(--display);
+  font-size: 15px;
+  color: var(--text);
+  font-weight: bold;
+}
+.rs-pg {
+  font-family: var(--mono);
+  font-size: 8.5px;
+  color: var(--text-faint);
+  margin-left: auto;
+}
+.rs-body {
+  font-size: 11px;
+  color: var(--text-dim);
+  font-family: var(--mono);
+  font-weight: 300;
+  margin-left: 40px;
+  line-height: 1.6;
+}
+.rs-owners {
+  margin-left: 40px;
+  margin-top: 5px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 3px;
+}
+
+/* ────── TIMELINE STRIP ────── */
+.timeline {
+  display: flex;
+  gap: 0;
+  margin-bottom: 28px;
+  overflow-x: auto;
+  border: 1px solid var(--rule);
+}
+.tl-phase {
+  flex: 1;
+  min-width: 130px;
+  padding: 14px 16px;
+  border-right: 1px solid var(--rule);
+  background: var(--surface);
+  position: relative;
+  border-top: 4px solid var(--rule);
+}
+.tl-phase:last-child { border-right: none; }
+.tl-ph-num {
+  display: inline-block;
+  font-size: 7px;
+  font-family: var(--mono);
+  font-weight: 700;
+  letter-spacing: 1px;
+  padding: 2px 5px;
+  border-radius: 2px;
+  margin-bottom: 6px;
+  color: #fff;
+  opacity: .95;
+}
+.tl-phase::after {
+  content: '→';
+  position: absolute;
+  right: -8px;
+  top: 50%;
+  transform: translateY(-50%);
+  color: var(--amber-dim);
+  font-size: 12px;
+  z-index: 1;
+  background: var(--surface);
+}
+.tl-phase:last-child::after { display: none; }
+.tl-wk {
+  font-family: var(--mono);
+  font-size: 8px;
+  color: var(--amber);
+  letter-spacing: 2px;
+  text-transform: uppercase;
+  margin-bottom: 4px;
+}
+.tl-name {
+  font-family: var(--headline);
+  font-size: 14px;
+  letter-spacing: 1px;
+  color: var(--text);
+  line-height: 1.1;
+  margin-bottom: 4px;
+}
+.tl-items {
+  font-family: var(--mono);
+  font-size: 9px;
+  color: var(--text-faint);
+  line-height: 1.6;
+}
+
+/* ────── FOOTER ────── */
+footer {
+  background: var(--surface);
+  color: var(--text-faint);
+  padding: 28px 60px;
+  font-size: 10px;
+  font-family: var(--mono);
+  line-height: 1.9;
+  border-top: 1px solid var(--amber-dim);
+}
+footer strong { color: var(--amber-dim); }
+
+/* ────── MERMAID OVERRIDES ────── */
+.mermaid svg { max-width: 100%; height: auto; }
+</style>
+</head>
+<body>
+
+<!-- ═══ MASTHEAD ═══ -->
+<div class="masthead">
+  <div class="ticker-bar">
+    Equity Research Practice Reference
+    <span class="ticker-sep">·</span>
+    Coverage Initiation Process
+    <span class="ticker-sep">·</span>
+    Sell-Side Methodology
+    <span class="ticker-sep">·</span>
+    FINRA Rule 2241 Compliant
+  </div>
+  <div class="mh-title">
+    COVERAGE<br/>
+    <span class="hl">INITIATION</span><br/>
+    <span class="it">A Complete Process Reference</span>
+  </div>
+  <p class="mh-sub">
+    From coverage decision through published report and post-publication sales engagement —
+    every phase, deliverable, required component, responsible party, and compliance checkpoint
+    mapped for sell-side equity research teams initiating on a sector, industry, or company.
+  </p>
+  <div class="mh-meta">
+    <span class="meta-chip">S-1 Initiation</span>
+    <span class="meta-chip">Sector / Industry Coverage</span>
+    <span class="meta-chip">Single-Name Initiation</span>
+    <span class="meta-chip">FINRA Rule 2241</span>
+    <span class="meta-chip">Reg AC Certification</span>
+    <span class="meta-chip">Research / IB Wall</span>
+  </div>
+</div>
+
+<!-- ═══ ROLE LEGEND ═══ -->
+<div class="role-strip">
+  <div class="role-item"><span class="rdot" style="background:#0072B2"></span>Lead Analyst</div>
+  <div class="role-item"><span class="rdot" style="background:#E69F00"></span>Associate</div>
+  <div class="role-item"><span class="rdot" style="background:#56B4E9"></span>Research Director</div>
+  <div class="role-item"><span class="rdot" style="background:#009E73"></span>Supervisory Analyst</div>
+  <div class="role-item"><span class="rdot" style="background:#F0E442"></span>Compliance</div>
+  <div class="role-item"><span class="rdot" style="background:#D55E00"></span>Sales Force</div>
+  <div class="role-item"><span class="rdot" style="background:#CC79A7"></span>Production / Layout</div>
+  <div class="role-item"><span class="rdot" style="background:#667085"></span>Portfolio Mgr (Client)</div>
+</div>
+
+<!-- ═══ TAB NAV ═══ -->
+<div class="tab-nav">
+  <div class="tab-btn active" onclick="showTab('overview')"><span style="display:inline-block;width:8px;height:8px;border-radius:1px;background:linear-gradient(90deg,#1F3864,#004D4D);margin-right:6px;vertical-align:middle"></span>Master Process Flow</div>
+  <div class="tab-btn" onclick="showTab('research')"><span style="display:inline-block;width:8px;height:8px;border-radius:1px;background:#1A4D3A;margin-right:6px;vertical-align:middle"></span>Due Diligence & Research</div>
+  <div class="tab-btn" onclick="showTab('model')"><span style="display:inline-block;width:8px;height:8px;border-radius:1px;background:#7B4F00;margin-right:6px;vertical-align:middle"></span>Financial Model</div>
+  <div class="tab-btn" onclick="showTab('report')"><span style="display:inline-block;width:8px;height:8px;border-radius:1px;background:#3D1A66;margin-right:6px;vertical-align:middle"></span>Report Architecture</div>
+  <div class="tab-btn" onclick="showTab('compliance')"><span style="display:inline-block;width:8px;height:8px;border-radius:1px;background:#6B0E1E;margin-right:6px;vertical-align:middle"></span>Compliance & Publication</div>
+  <div class="tab-btn" onclick="showTab('post')"><span style="display:inline-block;width:8px;height:8px;border-radius:1px;background:#2D3748;margin-right:6px;vertical-align:middle"></span>Post-Publication</div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════
+     TAB 1 — MASTER PROCESS OVERVIEW
+═══════════════════════════════════════════════════ -->
+<div id="tab-overview" class="tab-content active">
+<div class="page">
+
+  <!-- TIMELINE STRIP -->
+  <div class="timeline" style="margin-top:0">
+    <div class="tl-phase" style="border-top-color:#1F3864">
+      <div><span class="tl-ph-num" style="background:#1F3864">P1</span></div>
+      <div class="tl-wk">Weeks 1–2</div>
+      <div class="tl-name">Coverage Decision</div>
+      <div class="tl-items">Approval · Scoping · IB wall check · Resource allocation</div>
+    </div>
+    <div class="tl-phase" style="border-top-color:#1A4D3A">
+      <div><span class="tl-ph-num" style="background:#1A4D3A">P2</span></div>
+      <div class="tl-wk">Weeks 2–4</div>
+      <div class="tl-name">Industry Framework</div>
+      <div class="tl-items">Sector mapping · TAM · Competitive dynamics · Regulatory landscape</div>
+    </div>
+    <div class="tl-phase" style="border-top-color:#1A4D3A">
+      <div><span class="tl-ph-num" style="background:#1A4D3A">P2</span></div>
+      <div class="tl-wk">Weeks 3–6</div>
+      <div class="tl-name">Primary Research</div>
+      <div class="tl-items">Mgmt meetings · Expert calls · Scuttlebutt · Peer analysis</div>
+    </div>
+    <div class="tl-phase" style="border-top-color:#7B4F00">
+      <div><span class="tl-ph-num" style="background:#7B4F00">P3</span></div>
+      <div class="tl-wk">Weeks 4–7</div>
+      <div class="tl-name">Financial Model</div>
+      <div class="tl-items">3-stmt model · Segment build · KPIs · Comps · DCF · Valuation</div>
+    </div>
+    <div class="tl-phase" style="border-top-color:#3D1A66">
+      <div><span class="tl-ph-num" style="background:#3D1A66">P4</span></div>
+      <div class="tl-wk">Weeks 6–9</div>
+      <div class="tl-name">Report Writing</div>
+      <div class="tl-items">Thesis · Narrative · Exhibit build · Risk factors · PT derivation</div>
+    </div>
+    <div class="tl-phase" style="border-top-color:#6B0E1E">
+      <div><span class="tl-ph-num" style="background:#6B0E1E">P5</span></div>
+      <div class="tl-wk">Weeks 8–10</div>
+      <div class="tl-name">Review & Compliance</div>
+      <div class="tl-items">Supervisory review · Compliance · Legal · Rating committee · Disclosures</div>
+    </div>
+    <div class="tl-phase" style="border-right:none;border-top-color:#004D4D">
+      <div><span class="tl-ph-num" style="background:#004D4D">P6</span></div>
+      <div class="tl-wk">Week 10+</div>
+      <div class="tl-name">Publish & Distribute</div>
+      <div class="tl-items">Production · EDGAR/FINRA · Sales blast · Client roadshow</div>
+    </div>
+  </div>
+
+  <!-- MASTER FLOWCHART -->
+  <div class="diag-wrap">
+    <div class="diag-label">Master Flow — Coverage Initiation End-to-End</div>
+    <div class="mermaid">
+flowchart TD
+    START(["COVERAGE DECISION TRIGGER\nAnalyst identifies opportunity\nNew IPO, sector expansion, or client demand"])
+
+    subgraph APPROVAL ["PHASE 1 - APPROVAL AND SCOPING (Weeks 1-2)"]
+        direction TB
+        IBC{{"IB WALL CHECK\nCompliance screens for banking conflicts\nActive mandates, restricted list, quiet period"}}
+        APPR["RESEARCH DIRECTOR APPROVAL\nApproves sector, company, analyst assignment\nResource allocation and timeline set"]
+        COMP1["COMPLIANCE ONBOARDING\nAnalyst and associate register coverage\nPersonal account trading restrictions\nConflict disclosure checklist FINRA 2241"]
+        SCOPE["COVERAGE SCOPING\nDefine universe: sector vs single-name\nIdentify peer group 8-15 names\nObtain all public filings"]
+    end
+
+    subgraph RESEARCH ["PHASE 2 - PRIMARY RESEARCH (Weeks 2-6)"]
+        direction LR
+        SEC_RES["DESK RESEARCH\nHistorical financials 5+ years\nAll SEC filings\nEarnings call transcripts\nIndustry reports (Gartner, IBISWorld)"]
+        MGMT["MANAGEMENT MEETINGS\nCEO / CFO / COO / Segment heads\nBusiness model deep-dive\nStrategy and capital allocation"]
+        EXPERT["EXPERT CALLS\nIndustry experts (GLG, Gerson Lehrman)\nFormer executives and competitors\nChannel checks: distributors, customers"]
+        COMP_AN["COMPETITIVE ANALYSIS\nPorters Five Forces\nMarket share mapping\nTAM / SAM / SOM sizing"]
+    end
+
+    subgraph MODEL ["PHASE 3 - FINANCIAL MODELING (Weeks 4-7)"]
+        direction LR
+        HIST["HISTORICAL NORMALIZATION\n5-year historical model\nSegment disaggregation\nNon-GAAP reconciliation"]
+        PROJ["PROJECTION MODEL\n3-5 year income statement\nBalance sheet and cash flow\nBull / Base / Bear scenarios"]
+        VAL["VALUATION\nDCF with WACC and terminal value\nTrading comps: EV/EBITDA, P/E\nTarget price derivation"]
+    end
+
+    subgraph WRITE ["PHASE 4 - REPORT WRITING (Weeks 6-9)"]
+        direction LR
+        THESIS["INVESTMENT THESIS\nBull / Base / Bear cases\nVariant view vs consensus\nCatalyst map near- and long-term"]
+        NARRATIVE["FULL REPORT DRAFT\nCompany overview and industry\nCompetitive positioning\nRisk factors and ESG"]
+        EXHIBITS["EXHIBITS AND CHARTS\nComp tables and valuation bridges\nMargin waterfall and KPI trends\nAll source-cited and auditable"]
+    end
+
+    subgraph REVIEW ["PHASE 5 - REVIEW AND COMPLIANCE (Weeks 8-10)"]
+        direction LR
+        SUPREV["SUPERVISORY ANALYST REVIEW\nLine-by-line factual accuracy\nRating and price target consistency\nAll statistics sourced and cited"]
+        COMPREV["COMPLIANCE REVIEW\nFINRA Rule 2241 disclosures\nReg AC certification language\nConflict of interest disclosures"]
+        RATINGCOM["RATING COMMITTEE\nSenior analysts and research director\nChallenge session on thesis\nFormal vote on rating"]
+        FACTCHECK["FINAL FACT-CHECK\nCompany IR reviews factual claims only\nFirewall maintained on thesis and rating\nNumbers confirmed vs public filings"]
+    end
+
+    subgraph PUB ["PHASE 6 - PUBLICATION (Week 10+)"]
+        direction LR
+        PROD["PRODUCTION\nLayout and formatting team\nLegal boilerplate appended\nPDF and digital versions"]
+        DIST["DISTRIBUTION\nBloomberg / Refinitiv / FactSet\nProprietary client portal\nSimultaneous equal-access distribution"]
+        SALES["SALES FORCE BLAST\nAnalyst morning call presentation\nSales memo and talking points\nQ&A prep with Sales"]
+    end
+
+    subgraph POSTPUB ["PHASE 7 - POST-PUBLICATION (Ongoing)"]
+        direction LR
+        CLIENT["CLIENT ROADSHOW\nAnalyst and Institutional Sales\nPortfolio manager 1x1 meetings\nGroup calls and Q&A sessions"]
+        MAINT["COVERAGE MAINTENANCE\nEarnings model updates\nQuarterly notes\nRating and price target changes"]
+    end
+
+    START --> IBC
+    IBC -->|No conflict| APPR
+    IBC -->|Conflict found| BLOCK(["COVERAGE BLOCKED\nCompliance determination"])
+    APPR --> COMP1 --> SCOPE
+    SCOPE --> SEC_RES & MGMT & EXPERT & COMP_AN
+    SEC_RES & MGMT & EXPERT & COMP_AN --> HIST
+    HIST --> PROJ --> VAL
+    VAL --> THESIS
+    THESIS --> NARRATIVE --> EXHIBITS
+    THESIS & NARRATIVE & EXHIBITS --> SUPREV
+    SUPREV --> COMPREV --> RATINGCOM --> FACTCHECK
+    FACTCHECK --> PROD
+    PROD --> DIST --> SALES
+    DIST --> CLIENT
+    CLIENT --> MAINT
+
+    style START fill:#1c2e44,color:#e2d9cc,stroke:#e8a020,stroke-width:2px
+    style BLOCK fill:#7f1d1d,color:#e2d9cc,stroke:#dc2626
+    style RATINGCOM fill:#1f1a2e,color:#e2d9cc,stroke:#7c3aed
+    style COMPREV fill:#1f1a2e,color:#e2d9cc,stroke:#7c3aed
+    style VAL fill:#14532d,color:#e2d9cc,stroke:#16a34a
+    style DIST fill:#1c2e44,color:#e2d9cc,stroke:#e8a020
+    style MAINT fill:#1a2333,color:#e2d9cc,stroke:#e8a020,stroke-width:2px
+    style IBC fill:#78350f,color:#e2d9cc,stroke:#f59e0b
+    </div>
+  </div>
+
+  <!-- PARTY RESPONSIBILITY MATRIX -->
+  <div class="sh" style="padding-top:36px">
+    <span class="sh-num">§ 1.1</span>
+    <h2>PARTY RESPONSIBILITY MATRIX</h2>
+  </div>
+  <p class="sh-sub">Every workstream mapped to its primary owner, supporting party, and gating dependency.</p>
+
+  <table class="data-table">
+    <thead>
+      <tr>
+        <th>Phase</th>
+        <th>Workstream / Deliverable</th>
+        <th>Primary Owner</th>
+        <th>Support</th>
+        <th>Gate / Dependency</th>
+        <th>Compliance Trigger</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td>1 — Approval</td><td>Coverage universe selection</td><td><span class="ptag p-analyst">Lead Analyst</span></td><td><span class="ptag p-dir">Research Director</span></td><td>Available analyst capacity</td><td>FINRA 2241 firm-level coverage policy</td></tr>
+      <tr><td>1 — Approval</td><td>IB conflict / restricted list screen</td><td><span class="ptag p-comp">Compliance</span></td><td><span class="ptag p-ib">IB Group</span></td><td>Must clear before any research begins</td><td>FINRA 2241(b)(2); Exchange Act §15 firewalls</td></tr>
+      <tr><td>1 — Approval</td><td>Resource / budget allocation</td><td><span class="ptag p-dir">Research Director</span></td><td><span class="ptag p-analyst">Lead Analyst</span></td><td>Post-conflict clearance</td><td>—</td></tr>
+      <tr><td>1 — Approval</td><td>Personal account trading restriction</td><td><span class="ptag p-comp">Compliance</span></td><td><span class="ptag p-analyst">Lead Analyst</span><span class="ptag p-assoc">Associate</span></td><td>Immediate upon coverage decision</td><td>FINRA 2241(b)(3)(D); SEC Rule 10b-5</td></tr>
+      <tr><td>2 — Research</td><td>SEC filing / transcript compilation</td><td><span class="ptag p-assoc">Associate</span></td><td><span class="ptag p-analyst">Lead Analyst</span></td><td>Coverage list finalized</td><td>—</td></tr>
+      <tr><td>2 — Research</td><td>Management meeting (NDAs; firewall)</td><td><span class="ptag p-analyst">Lead Analyst</span></td><td><span class="ptag p-sales">Institutional Sales</span></td><td>IB wall maintained; no MNPI transmission</td><td>FINRA 2241; SEC Reg FD</td></tr>
+      <tr><td>2 — Research</td><td>Expert network / channel checks</td><td><span class="ptag p-analyst">Lead Analyst</span><span class="ptag p-assoc">Associate</span></td><td><span class="ptag p-comp">Compliance</span></td><td>Expert call compliance pre-approval required at some firms</td><td>SEC insider trading rules; MNPI risk</td></tr>
+      <tr><td>2 — Research</td><td>Industry conference 1x1 meetings</td><td><span class="ptag p-analyst">Lead Analyst</span></td><td><span class="ptag p-sales">Sales</span></td><td>No selective disclosure from company</td><td>SEC Reg FD</td></tr>
+      <tr><td>2 — Research</td><td>Competitive / peer analysis</td><td><span class="ptag p-assoc">Associate</span></td><td><span class="ptag p-analyst">Lead Analyst</span></td><td>Peer comp table finalized</td><td>—</td></tr>
+      <tr><td>3 — Model</td><td>Historical financial normalization</td><td><span class="ptag p-assoc">Associate</span></td><td><span class="ptag p-analyst">Lead Analyst</span></td><td>All 10-Ks / 10-Qs obtained</td><td>—</td></tr>
+      <tr><td>3 — Model</td><td>Segment / KPI projection model</td><td><span class="ptag p-analyst">Lead Analyst</span><span class="ptag p-assoc">Associate</span></td><td>—</td><td>Historical normalization complete</td><td>—</td></tr>
+      <tr><td>3 — Model</td><td>DCF and comparable company valuation</td><td><span class="ptag p-analyst">Lead Analyst</span></td><td><span class="ptag p-assoc">Associate</span></td><td>Projection model signed off by analyst</td><td>—</td></tr>
+      <tr><td>3 — Model</td><td>Price target derivation and methodology</td><td><span class="ptag p-analyst">Lead Analyst</span></td><td><span class="ptag p-dir">Research Director</span></td><td>Valuation framework approved</td><td>FINRA 2241(c)(4) — PT disclosure requirements</td></tr>
+      <tr><td>4 — Writing</td><td>Investment thesis authoring</td><td><span class="ptag p-analyst">Lead Analyst</span></td><td>—</td><td>Research / model complete; variant view identified</td><td>—</td></tr>
+      <tr><td>4 — Writing</td><td>Full report narrative draft</td><td><span class="ptag p-analyst">Lead Analyst</span></td><td><span class="ptag p-assoc">Associate</span></td><td>Thesis finalized by analyst</td><td>—</td></tr>
+      <tr><td>4 — Writing</td><td>Exhibit / chart construction</td><td><span class="ptag p-assoc">Associate</span></td><td><span class="ptag p-analyst">Lead Analyst</span></td><td>Model finalized</td><td>All data must be source-cited</td></tr>
+      <tr><td>5 — Review</td><td>Supervisory analyst line review</td><td><span class="ptag p-sup">Supervisory Analyst</span></td><td><span class="ptag p-dir">Research Director</span></td><td>Complete draft submitted</td><td>FINRA 2241(b)(1) — supervisory review required</td></tr>
+      <tr><td>5 — Review</td><td>Compliance review (disclosures)</td><td><span class="ptag p-comp">Compliance</span></td><td><span class="ptag p-analyst">Lead Analyst</span></td><td>Post-supervisory review</td><td>FINRA 2241(c); Reg AC §501–502</td></tr>
+      <tr><td>5 — Review</td><td>Rating committee (if applicable)</td><td><span class="ptag p-dir">Research Director</span></td><td><span class="ptag p-analyst">Lead Analyst</span></td><td>Compliance pre-clearance</td><td>Firm policy; FINRA 2241(b)(1)</td></tr>
+      <tr><td>5 — Review</td><td>Factual verification with company IR</td><td><span class="ptag p-analyst">Lead Analyst</span></td><td><span class="ptag p-mgmt">Company IR</span></td><td>Analyst controls thesis; only facts verified</td><td>SEC Reg FD (no selective disclosure)</td></tr>
+      <tr><td>6 — Publication</td><td>Layout / production</td><td><span class="ptag p-prod">Production</span></td><td><span class="ptag p-assoc">Associate</span></td><td>Compliance-approved final draft</td><td>—</td></tr>
+      <tr><td>6 — Publication</td><td>Equal-access distribution</td><td><span class="ptag p-comp">Compliance</span><span class="ptag p-prod">Production</span></td><td><span class="ptag p-sales">Sales</span></td><td>Simultaneous distribution required</td><td>FINRA 2241(b)(2)(D); equal access rule</td></tr>
+      <tr><td>6 — Publication</td><td>Sales force morning call</td><td><span class="ptag p-analyst">Lead Analyst</span></td><td><span class="ptag p-sales">Sales</span></td><td>Report publicly released first</td><td>No pre-release selective disclosure</td></tr>
+      <tr><td>7 — Post-Pub</td><td>Client roadshow / PM meetings</td><td><span class="ptag p-analyst">Lead Analyst</span></td><td><span class="ptag p-sales">Institutional Sales</span></td><td>Report distributed</td><td>All views consistent with published report</td></tr>
+      <tr><td>7 — Post-Pub</td><td>Earnings model updates / rating changes</td><td><span class="ptag p-analyst">Lead Analyst</span><span class="ptag p-assoc">Associate</span></td><td><span class="ptag p-comp">Compliance</span></td><td>Post each earnings release / material event</td><td>FINRA 2241(c)(4) — timely update requirements</td></tr>
+    </tbody>
+  </table>
+
+</div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════
+     TAB 2 — RESEARCH & DUE DILIGENCE
+═══════════════════════════════════════════════════ -->
+<div id="tab-research" class="tab-content">
+<div class="page">
+
+  <div class="sh" style="padding-top:0; border-top:none">
+    <span class="sh-num">§ 2</span>
+    <h2>PRIMARY RESEARCH & DUE DILIGENCE</h2>
+  </div>
+  <p class="sh-sub">The research phase is the analytic engine of the initiation. It encompasses secondary desk research, primary management access, expert network diligence, industry conference intelligence, and competitive mapping — all feeding into the financial model and investment thesis.</p>
+
+  <div class="diag-wrap">
+    <div class="diag-label">Research & Due Diligence — Detailed Component Flow</div>
+    <div class="mermaid">
+flowchart TD
+    RESSTART(["RESEARCH PHASE BEGINS
+Coverage list confirmed
+Analyst and associate assigned"])
+
+    subgraph DESK ["SECONDARY DESK RESEARCH - Associate-led"]
+        direction LR
+        FILINGS["PUBLIC FILINGS REVIEW
+10-K: business, risk factors, MD&A
+10-Q (last 4 quarters)
+8-K: material events
+Proxy: mgmt incentives
+EDGAR XBRL data extraction"]
+        TRANS["EARNINGS CALL TRANSCRIPTS
+Last 8 quarters minimum
+Management guidance history
+Consensus beat/miss pattern
+Language change analysis"]
+        PRIOR["PRIOR RESEARCH REVIEW
+Existing sell-side initiations
+Buy-side published views
+Newsflow and press release archive"]
+        INDUSTRY["INDUSTRY DATA
+IBISWorld / Gartner / IDC
+CMS data (healthcare)
+CoStar (real estate)
+comScore / App Annie (tech)"]
+    end
+
+    subgraph MGMTMT ["MANAGEMENT ACCESS - Lead Analyst-led"]
+        direction LR
+        INTRO["INTRO CALL WITH IR
+Establish relationship
+Request management meeting
+Obtain investor presentation"]
+        MGMT1["C-SUITE MEETING
+CEO: strategic vision and M&A appetite
+CFO: financial model and leverage targets
+COO: operational metrics and efficiency"]
+        MGMT2["DIVISION AND SEGMENT HEADS
+Product line economics
+Unit economics and contribution margins
+Sales pipeline and backlog"]
+        MGMT3["SITE VISIT
+Manufacturing / distribution / HQ
+Culture assessment
+Operational reality check"]
+    end
+
+    subgraph EXPERTGRP ["EXPERT NETWORK AND CHANNEL CHECKS"]
+        direction LR
+        KOL["EXPERT CALLS
+Former executives (CEO, CFO, SVP Sales)
+Suppliers and vendors
+Distributors and channel partners
+Customers (key accounts)"]
+        CHAN["CHANNEL CHECKS
+Retail sell-through data
+Website traffic (SimilarWeb)
+Credit card data (Second Measure)
+Satellite imagery (parking lots)"]
+        COMP_CALL["COMPETITOR CALLS
+Competitor investor relations
+Peer earnings calls for cross-references
+Industry trade association data"]
+    end
+
+    subgraph CONFGRP ["INDUSTRY CONFERENCES - Lead Analyst"]
+        direction LR
+        CONF1["COMPANY INVESTOR DAYS
+Detailed financial outlook
+Management access at scale
+Capex and strategy updates"]
+        CONF2["INDUSTRY CONFERENCES
+JPM Healthcare and Goldman Communacopia
+Peer 1x1 meetings (15+ per day)
+Sales coordinates booking"]
+    end
+
+    subgraph COMPWORK ["COMPETITIVE AND INDUSTRY ANALYSIS"]
+        direction LR
+        PORTER["PORTERS FIVE FORCES
+Buyer and Supplier power
+Threat of substitutes
+Barriers to entry
+Intra-industry rivalry"]
+        TAM["MARKET SIZING
+TAM / SAM / SOM derivation
+Bottom-up unit economics check
+Top-down macro overlay"]
+        MOAT["COMPETITIVE MOAT
+Cost advantages
+Network effects
+Switching costs
+Intangibles: brand, patents, data"]
+        PEER_MAP["PEER BENCHMARKING
+Revenue mix comparison
+Margin profile vs peers
+Multiple premium or discount
+ROIC and ROCE vs peers"]
+    end
+
+    MODEL_INPUT(["FEEDS INTO FINANCIAL MODEL"])
+
+    RESSTART --> FILINGS & INTRO & KOL & CONF1 & PORTER
+    FILINGS & TRANS & PRIOR & INDUSTRY --> MODEL_INPUT
+    INTRO --> MGMT1 --> MGMT2 --> MGMT3
+    MGMT3 --> MODEL_INPUT
+    KOL & CHAN & COMP_CALL --> MODEL_INPUT
+    CONF1 & CONF2 --> MODEL_INPUT
+    PORTER & TAM & MOAT & PEER_MAP --> MODEL_INPUT
+
+    style RESSTART fill:#1c2e44,color:#e2d9cc,stroke:#e8a020,stroke-width:2px
+    style MODEL_INPUT fill:#14532d,color:#e2d9cc,stroke:#16a34a,stroke-width:2px
+    style KOL fill:#1a1a2e,color:#e2d9cc,stroke:#7c3aed
+    style CHAN fill:#1a1a2e,color:#e2d9cc,stroke:#7c3aed
+    </div>
+  </div>
+
+  <div class="callout">
+    <strong>Reg FD Firewall:</strong> Management meetings must be conducted with strict adherence to SEC Regulation FD (Fair Disclosure). Analysts may not receive material nonpublic information; any inadvertent MNPI transmission must be immediately reported to compliance and may require trading halts. Expert network calls require pre-clearance at most firms; calls with current employees of covered companies are prohibited without explicit compliance approval. Sources: SEC Regulation FD (Release 33-7881); FINRA Rule 2241(b)(2)(G).
+  </div>
+
+  <!-- RESEARCH OUTPUT DELIVERABLES -->
+  <div class="sh">
+    <span class="sh-num">§ 2.1</span>
+    <h2>RESEARCH PHASE DELIVERABLES</h2>
+  </div>
+  <p class="sh-sub">Tangible outputs produced during the research phase that feed directly into the financial model and report.</p>
+
+  <div class="del-grid">
+    <div class="del-card highlight">
+      <div class="dc-phase">Desk Research</div>
+      <div class="dc-name">Earnings Model Seed</div>
+      <div class="dc-desc">5-year historical financial data extracted from 10-Ks, normalized for one-time items. Associate-built in Excel.</div>
+    </div>
+    <div class="del-card">
+      <div class="dc-phase">Desk Research</div>
+      <div class="dc-name">Filing Summary Memo</div>
+      <div class="dc-desc">2–5 page synthesis of key disclosures, risk factors, and MD&A themes from last 3 annual reports.</div>
+    </div>
+    <div class="del-card">
+      <div class="dc-phase">Management Access</div>
+      <div class="dc-name">Management Meeting Notes</div>
+      <div class="dc-desc">Detailed notes from C-suite and segment meetings. Key takeaways, guidance parameters, strategic priorities.</div>
+    </div>
+    <div class="del-card highlight">
+      <div class="dc-phase">Management Access</div>
+      <div class="dc-name">Key Assumption Sheet</div>
+      <div class="dc-desc">Revenue growth, margin trajectory, capex, working capital — all grounded in management discussion and analyst judgment.</div>
+    </div>
+    <div class="del-card">
+      <div class="dc-phase">Expert Calls</div>
+      <div class="dc-name">Expert Call Notes (10–20)</div>
+      <div class="dc-desc">Verbatim + synthesis. Key conviction builders or destroyers. Filed with compliance in most firms.</div>
+    </div>
+    <div class="del-card">
+      <div class="dc-phase">Channel Checks</div>
+      <div class="dc-name">Channel Data Analysis</div>
+      <div class="dc-desc">Credit card / traffic / inventory data synthesized vs. consensus estimates. Leading indicator assessment.</div>
+    </div>
+    <div class="del-card highlight">
+      <div class="dc-phase">Competitive Analysis</div>
+      <div class="dc-name">Peer Comp Universe</div>
+      <div class="dc-desc">8–15 name comp group with standardized metrics: EV/EBITDA, P/E, EV/Sales, FCF yield, ROIC. Analyst-approved.</div>
+    </div>
+    <div class="del-card">
+      <div class="dc-phase">Industry</div>
+      <div class="dc-name">TAM Sizing Model</div>
+      <div class="dc-desc">Bottom-up and top-down TAM estimate with sensitivity. Marketshare trajectory and capture assumptions.</div>
+    </div>
+    <div class="del-card">
+      <div class="dc-phase">All Sources</div>
+      <div class="dc-name">Source Citation Register</div>
+      <div class="dc-desc">Compliance requirement at most firms: every factual claim in the initiation report must have a documented source.</div>
+    </div>
+  </div>
+
+</div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════
+     TAB 3 — FINANCIAL MODEL
+═══════════════════════════════════════════════════ -->
+<div id="tab-model" class="tab-content">
+<div class="page">
+
+  <div class="sh" style="padding-top:0; border-top:none">
+    <span class="sh-num">§ 3</span>
+    <h2>FINANCIAL MODEL ARCHITECTURE</h2>
+  </div>
+  <p class="sh-sub">The sell-side initiation model is the quantitative backbone of the entire report. It typically spans 5+ years of history and 3–5 years of projections across a full 3-statement model, segment-level build, key industry KPIs, comprehensive valuation work, and scenario analysis.</p>
+
+  <div class="diag-wrap">
+    <div class="diag-label">Financial Model Build Flow — from Historical Data to Price Target</div>
+    <div class="mermaid">
+flowchart TD
+    MSTART(["MODEL INITIATION
+Associate creates master workbook
+Source: 10-Ks / 10-Qs / EDGAR XBRL"])
+
+    subgraph HISTBUILD ["HISTORICAL MODEL - Associate primary / Analyst QC"]
+        direction LR
+        IS1["INCOME STATEMENT
+Revenue by segment (5yr)
+Gross profit and margin by segment
+Adjusted EBITDA bridge
+Adj. EPS (basic and diluted)"]
+        BS1["BALANCE SHEET
+Working capital accounts
+Goodwill and intangibles schedule
+Debt schedule (tranches and maturities)
+Lease obligations (ASC 842)"]
+        CF1["CASH FLOW STATEMENT
+Operating CF bridge
+Capex: maintenance vs growth
+FCF conversion rate
+Dividends and buyback history"]
+    end
+
+    subgraph NORM ["NORMALIZATION - Analyst-led"]
+        direction LR
+        NONREC["ONE-TIME ITEM STRIP
+M&A transaction costs
+Restructuring charges
+Asset impairments
+Stock compensation adjustments"]
+        RESTATE["RESTATEMENT CHECK
+Verify restated periods
+Recast for discontinued ops
+Segment reclassifications
+Accounting policy adjustments"]
+    end
+
+    subgraph PROJBUILD ["PROJECTION MODEL - Analyst-led, Associate-built"]
+        direction LR
+        REVPROJ["REVENUE PROJECTIONS
+Segment-level build
+Price x Volume drivers
+Management guidance as anchor
+Bull / Base / Bear cases"]
+        MARGPROJ["MARGIN PROJECTIONS
+Gross margin expansion drivers
+Operating leverage analysis
+Fixed vs variable cost modeling
+Benefit of scale and mix shift"]
+        CFPROJ["FREE CASH FLOW MODEL
+EBITDA to FCF bridge
+Unlevered FCF (for DCF)
+Levered FCF (for equity value)
+FCF yield vs peers"]
+    end
+
+    subgraph KPILAYER ["KPI AND OPERATING METRICS - Sector-specific"]
+        direction LR
+        KPI_HC["Healthcare
+Revenue per admission
+EBITDAR margin
+Payer mix and same-facility growth"]
+        KPI_TECH["Technology
+ARR / NRR / CAC / LTV
+Churn rate and Rule of 40
+Cloud ARR mix"]
+        KPI_REIT["REIT
+Same-store NOI / FFO / AFFO
+Occupancy and Rent PSF
+Cap rate and lease spreads"]
+        KPI_CONS["Consumer / Retail
+Same-store sales and AUV
+Gross margin bridge
+Inventory turns and COGS per unit"]
+    end
+
+    subgraph VALUATION ["VALUATION - Lead Analyst primary responsibility"]
+        direction LR
+        DCF["DCF ANALYSIS
+Projection period FCFs (5-10yr)
+WACC: risk-free rate plus ERP plus beta
+Cost of debt (YTM on bonds)
+Terminal value: Gordon Growth
+or exit multiple cross-check
+Equity bridge: PV minus net debt"]
+        COMPS["TRADING COMPARABLES
+Select 8-15 peer names
+EV/EBITDA (NTM and 1yr fwd)
+EV/Revenue (high-growth names)
+P/E adjusted and FCF yield"]
+        PREC["PRECEDENT TRANSACTIONS
+Last 5-7 years M&A in sector
+Control premium analysis
+Strategic vs financial buyer premium
+Cycle-adjusted multiples"]
+        SOTP["SUM OF PARTS
+Value each segment independently
+Pure-play comps per segment
+Conglomerate discount applied
+NAV analysis (REITs and E&P)"]
+        SENS["SENSITIVITY ANALYSIS
+Revenue growth vs WACC matrix
+EBITDA margin vs exit multiple
+Risk-adjusted scenarios
+Probability-weighted outcomes"]
+    end
+
+    subgraph PT ["PRICE TARGET DERIVATION - Analyst to Research Director"]
+        direction LR
+        PTMETH["METHODOLOGY WEIGHTING
+Analyst selects and weights methods
+DCF / Trading comps / SOTP
+12-month forward basis (standard)
+Weighted price target computed"]
+        RATING["RATING ASSIGNMENT
+Buy / Outperform / Overweight
+Neutral / Hold / Market Perform
+Sell / Underperform / Underweight
+Implied return vs cost of equity"]
+    end
+
+    MSTART --> IS1 & BS1 & CF1
+    IS1 & BS1 & CF1 --> NONREC & RESTATE
+    NONREC & RESTATE --> REVPROJ & MARGPROJ & CFPROJ
+    REVPROJ & MARGPROJ & CFPROJ --> KPI_HC & KPI_TECH & KPI_REIT & KPI_CONS
+    KPI_HC & KPI_TECH & KPI_REIT & KPI_CONS --> DCF & COMPS & PREC & SOTP
+    DCF & COMPS & PREC & SOTP --> SENS
+    SENS --> PTMETH --> RATING
+
+    style MSTART fill:#1c2e44,color:#e2d9cc,stroke:#e8a020,stroke-width:2px
+    style RATING fill:#14532d,color:#e2d9cc,stroke:#16a34a,stroke-width:2px
+    style DCF fill:#1a1e14,color:#e2d9cc,stroke:#a3e635
+    style COMPS fill:#1a1e14,color:#e2d9cc,stroke:#a3e635
+    style PTMETH fill:#1f1a2e,color:#e2d9cc,stroke:#7c3aed
+    style NONREC fill:#78350f,color:#e2d9cc,stroke:#f59e0b
+    </div>
+  </div>
+
+  <div class="callout">
+    <strong>Sector-Specific KPIs:</strong> The financial model must be adapted to the sector being covered. Healthcare services analysts track EBITDAR coverage ratios, payer mix, and same-facility revenue growth. REIT analysts build FFO, AFFO, and same-store NOI models. Technology SaaS analysts track ARR, NRR, CAC payback, and Rule of 40 scores. Consumer analysts track unit economics, same-store sales, and gross margin bridge analysis. The sector-specific KPI layer is often the primary differentiator between a generic initiation and a high-conviction one. Sources: PCAOB AS 2101; Analyst community convention; healthcare: MedPAC, CMS data sources.
+  </div>
+
+</div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════
+     TAB 4 — REPORT ARCHITECTURE
+═══════════════════════════════════════════════════ -->
+<div id="tab-report" class="tab-content">
+<div class="page">
+
+  <div class="sh" style="padding-top:0; border-top:none">
+    <span class="sh-num">§ 4</span>
+    <h2>INITIATION REPORT ARCHITECTURE</h2>
+  </div>
+  <p class="sh-sub">A comprehensive initiation report typically runs 50–150 pages for a single name (shorter for sector overviews). Every section has a defined owner, required content, and compliance obligations. The table below and flow diagram below map each component in document order.</p>
+
+  <!-- REPORT ANATOMY LIST -->
+  <div class="report-section">
+    <div class="rs-header">
+      <div class="rs-num">§ R.1</div>
+      <div class="rs-title">Cover Page</div>
+      <div class="rs-pg">~1 page</div>
+    </div>
+    <div class="rs-body">Company name, ticker, exchange, date, report title ("Initiating Coverage"), rating (Buy/Hold/Sell), price target (12-month), current price, upside/downside %, analyst name, associate name, firm name, and required FINRA 2241 disclosure box summary. Must match all internal compliance-approved disclosures exactly.</div>
+    <div class="rs-owners"><span class="ptag p-analyst">Lead Analyst</span><span class="ptag p-prod">Production</span><span class="ptag p-comp">Compliance (disclosures)</span></div>
+  </div>
+
+  <div class="report-section">
+    <div class="rs-header">
+      <div class="rs-num">§ R.2</div>
+      <div class="rs-title">Executive Summary / Key Investment Points</div>
+      <div class="rs-pg">1–3 pages</div>
+    </div>
+    <div class="rs-body">The most-read section. Typically 3–5 bulleted key points supporting the rating, concise thesis statement, 12-month price target and methodology, implied return including dividend, key risks to thesis (upside and downside), and near-term catalyst schedule. Written to stand alone — many PMs read only this section.</div>
+    <div class="rs-owners"><span class="ptag p-analyst">Lead Analyst</span></div>
+  </div>
+
+  <div class="report-section">
+    <div class="rs-header">
+      <div class="rs-num">§ R.3</div>
+      <div class="rs-title">Investment Thesis — Bull / Base / Bear Cases</div>
+      <div class="rs-pg">2–5 pages</div>
+    </div>
+    <div class="rs-body">Three-scenario narrative with explicit financial outcomes for each. Bull case: what has to go right (revenue upside, margin expansion, multiple re-rating). Base case: management targets, consensus-beating assumptions. Bear case: what can go wrong (revenue miss, margin compression, multiple compression). Probability weights optional but increasingly common. Variant view vs. consensus explicitly stated.</div>
+    <div class="rs-owners"><span class="ptag p-analyst">Lead Analyst</span></div>
+  </div>
+
+  <div class="report-section">
+    <div class="rs-header">
+      <div class="rs-num">§ R.4</div>
+      <div class="rs-title">Company Overview & Business Model</div>
+      <div class="rs-pg">5–15 pages</div>
+    </div>
+    <div class="rs-body">Corporate history and key milestones. Business model explanation: how the company makes money, pricing model, customer base, revenue mix (recurring vs. transactional). Segment descriptions with revenue and margin contribution. Geographic footprint. Key products/services. Management team bios (CEO, CFO, COO with tenure and track record). Board composition and governance assessment. Ownership structure (key shareholders, insider ownership %).</div>
+    <div class="rs-owners"><span class="ptag p-analyst">Lead Analyst</span><span class="ptag p-assoc">Associate</span></div>
+  </div>
+
+  <div class="report-section">
+    <div class="rs-header">
+      <div class="rs-num">§ R.5</div>
+      <div class="rs-title">Industry & Sector Analysis</div>
+      <div class="rs-pg">8–20 pages</div>
+    </div>
+    <div class="rs-body">Total addressable market (TAM) sizing with methodology disclosed. Market growth rate drivers (secular tailwinds, demographic, regulatory). Industry structure (fragmented vs. consolidated, oligopoly dynamics). Porter's Five Forces analysis. Regulatory environment and key pending rules. Technology disruption risks and opportunities. M&A landscape in the sector. Supply chain and input cost analysis.</div>
+    <div class="rs-owners"><span class="ptag p-analyst">Lead Analyst</span><span class="ptag p-assoc">Associate</span></div>
+  </div>
+
+  <div class="report-section">
+    <div class="rs-header">
+      <div class="rs-num">§ R.6</div>
+      <div class="rs-title">Competitive Positioning</div>
+      <div class="rs-pg">4–8 pages</div>
+    </div>
+    <div class="rs-body">Competitive moat assessment (cost leadership, differentiation, network effects, switching costs, regulatory barriers). Market share map with trend. Head-to-head comparison vs. top 3–5 competitors on key metrics: pricing, product, distribution, brand, R&D spend. Customer concentration analysis. Win/loss analysis where available. Assessment of management's competitive strategy and credibility.</div>
+    <div class="rs-owners"><span class="ptag p-analyst">Lead Analyst</span><span class="ptag p-assoc">Associate</span></div>
+  </div>
+
+  <div class="report-section">
+    <div class="rs-header">
+      <div class="rs-num">§ R.7</div>
+      <div class="rs-title">Financial Analysis — Historical & Projected</div>
+      <div class="rs-pg">10–25 pages</div>
+    </div>
+    <div class="rs-body">Revenue analysis and segment deep-dive. Gross margin and EBITDA margin bridge (historical and forecast). Working capital and cash conversion cycle. Capital expenditure cycle and return on invested capital (ROIC) trend. Free cash flow generation and uses (dividends, buybacks, M&A, deleveraging). Balance sheet health: leverage ratio, liquidity, covenant headroom. Consensus estimate comparison table (analyst vs. Street). Key metric sensitivities.</div>
+    <div class="rs-owners"><span class="ptag p-analyst">Lead Analyst</span><span class="ptag p-assoc">Associate (model / exhibits)</span></div>
+  </div>
+
+  <div class="report-section">
+    <div class="rs-header">
+      <div class="rs-num">§ R.8</div>
+      <div class="rs-title">Valuation</div>
+      <div class="rs-pg">5–12 pages</div>
+    </div>
+    <div class="rs-body">Primary valuation methodology with full disclosure of approach. DCF: explicit assumptions for WACC components, projection period, terminal growth rate, and enterprise-to-equity bridge. Trading comps: peer group with EV/EBITDA, P/E, FCF yield on NTM+1 basis with relevant footnotes. Precedent transaction comps. SOTP (if applicable). Valuation summary chart ("football field" — range of outcomes by methodology). Sensitivity tables (2D: revenue growth vs. WACC; margin vs. multiple). 12-month price target derivation. Historical trading range analysis (where stock traded on key multiples over time).</div>
+    <div class="rs-owners"><span class="ptag p-analyst">Lead Analyst</span><span class="ptag p-assoc">Associate (exhibits)</span><span class="ptag p-dir">Research Director (PT sign-off)</span></div>
+  </div>
+
+  <div class="report-section">
+    <div class="rs-header">
+      <div class="rs-num">§ R.9</div>
+      <div class="rs-title">Catalysts</div>
+      <div class="rs-pg">2–4 pages</div>
+    </div>
+    <div class="rs-body">Near-term catalysts (3–12 months): earnings releases, investor days, FDA approvals, contract renewals, data readouts. Medium-term catalysts (1–3 years): product launches, market share gains, M&A, margin inflection. Each catalyst should have estimated timeline, probability, and financial impact. Bull case catalyst map vs. bear case catalyst map. Event-driven calendar.</div>
+    <div class="rs-owners"><span class="ptag p-analyst">Lead Analyst</span></div>
+  </div>
+
+  <div class="report-section">
+    <div class="rs-header">
+      <div class="rs-num">§ R.10</div>
+      <div class="rs-title">Risk Factors</div>
+      <div class="rs-pg">3–6 pages</div>
+    </div>
+    <div class="rs-body">Downside risks to rating and price target (ranked by severity and probability): execution risk, competitive risk, macro/rate risk, regulatory risk, customer concentration risk, key person risk, leverage / refinancing risk, litigation risk. Upside risks (if rated Hold or Sell): re-rating scenarios, faster-than-expected growth, margin upside, accretive M&A. ESG risk factors (increasingly required): governance risk, environmental liability, social / labor risk.</div>
+    <div class="rs-owners"><span class="ptag p-analyst">Lead Analyst</span><span class="ptag p-comp">Compliance (review for balance)</span></div>
+  </div>
+
+  <div class="report-section">
+    <div class="rs-header">
+      <div class="rs-num">§ R.11</div>
+      <div class="rs-title">ESG Assessment (increasingly standard)</div>
+      <div class="rs-pg">1–4 pages</div>
+    </div>
+    <div class="rs-body">Environmental: carbon footprint, energy intensity, climate transition risk, physical climate risk. Social: employee metrics (turnover, diversity), customer data privacy, supply chain labor practices, community impact. Governance: board independence, executive pay alignment, shareholder rights, related-party transaction history. MSCI ESG rating, Sustainalytics risk score, CDP score referenced.</div>
+    <div class="rs-owners"><span class="ptag p-analyst">Lead Analyst</span><span class="ptag p-assoc">Associate</span></div>
+  </div>
+
+  <div class="report-section" style="border-left-color:var(--red)">
+    <div class="rs-header">
+      <div class="rs-num">§ R.12</div>
+      <div class="rs-title">Required Disclosures (FINRA Rule 2241 / Reg AC)</div>
+      <div class="rs-pg">2–4 pages (boilerplate)</div>
+    </div>
+    <div class="rs-body">
+      MANDATORY — compliance-generated, non-negotiable content: (1) Analyst certification (Reg AC §501): "I, [Analyst Name], certify that the views expressed herein accurately reflect my personal views..." (2) Rating distribution disclosure: firm-wide % of ratings in each category + % receiving IB services in each. (3) Company-specific IB disclosure: fees received in prior 12 months, investment banking relationship. (4) Analyst compensation disclosure (FINRA 2241(c)(3)). (5) Price target history chart (last 12 months). (6) Rating history chart (last 12 months). (7) Valuation methodology disclosure. (8) Risk disclosure. (9) Regulatory disclosures (MiFID II in EU; SEBI in India etc.). (10) Conflicts of interest disclosure. (11) Personal account trading restrictions disclosure.
+    </div>
+    <div class="rs-owners"><span class="ptag p-comp">Compliance (generates)</span><span class="ptag p-analyst">Lead Analyst (certifies)</span><span class="ptag p-prod">Production (appends)</span></div>
+  </div>
+
+  <!-- REPORT FLOW DIAGRAM -->
+  <div class="sh">
+    <span class="sh-num">§ 4.1</span>
+    <h2>REPORT COMPONENT DEPENDENCY FLOW</h2>
+  </div>
+  <p class="sh-sub">How each section of the initiation report feeds into and depends on others — the sequencing that governs writing order.</p>
+
+  <div class="diag-wrap">
+    <div class="diag-label">Report Component Sequencing & Dependencies</div>
+    <div class="mermaid">
+flowchart LR
+    subgraph INPUTS ["MODEL AND RESEARCH INPUTS"]
+        direction TB
+        MI["Financial Model
+(3-stmt and projections)"]
+        RI["Research Notes
+(DD memos, expert calls)"]
+        VI["Valuation Output
+(DCF, comps, PT)"]
+        CI["Competitive Analysis
+(moat, peer comps)"]
+    end
+
+    subgraph FOUNDATION ["FOUNDATION SECTIONS - Write first"]
+        direction TB
+        CO["R4: Company Overview
+and Business Model
+(Analyst and Associate)"]
+        IA["R5: Industry and
+Sector Analysis
+(Analyst and Associate)"]
+        FA["R7: Financial Analysis
+Historical
+(Associate-led)"]
+    end
+
+    subgraph CORE ["CORE ANALYTICAL SECTIONS - Write second"]
+        direction TB
+        CP["R6: Competitive
+Positioning
+(Analyst)"]
+        PROJ["R7: Financial Analysis
+Projected and Forward
+(Analyst)"]
+        VAL_SEC["R8: Valuation
+(Analyst primary
+Associate exhibits)"]
+    end
+
+    subgraph THESIS_SEC ["THESIS LAYER - Write third"]
+        direction TB
+        TH["R3: Investment Thesis
+Bull / Base / Bear
+(Analyst only)"]
+        CAT["R9: Catalysts
+(Analyst)"]
+        RISK["R10: Risk Factors
+(Analyst and Compliance)"]
+        ESG["R11: ESG Assessment
+(Analyst and Associate)"]
+    end
+
+    subgraph WRAP ["WRAPPER SECTIONS - Write last"]
+        direction TB
+        EXEC["R2: Executive Summary
+and Key Points
+(Analyst - written last)"]
+        DISC["R12: Required Disclosures
+(Compliance generates
+Analyst certifies)"]
+        COV["R1: Cover Page
+(Production assembles
+Compliance checks)"]
+    end
+
+    FINAL(["INITIATION REPORT COMPLETE
+Submitted for Supervisory Review"])
+
+    MI --> FA & PROJ & VAL_SEC
+    RI --> CO & IA & CP & TH
+    VI --> VAL_SEC & TH
+    CI --> CP & IA & TH
+    CO --> CP
+    IA --> CP & PROJ
+    FA --> PROJ --> VAL_SEC
+    VAL_SEC --> TH
+    CP --> TH & RISK
+    PROJ --> CAT
+    TH --> EXEC
+    VAL_SEC -.->|PT and rating| COV
+    TH -.->|Key points| EXEC
+    DISC -.->|Compliance gate| FINAL
+    EXEC & DISC & COV --> FINAL
+
+    style FINAL fill:#1c2e44,color:#e2d9cc,stroke:#e8a020,stroke-width:2px
+    style TH fill:#14532d,color:#e2d9cc,stroke:#16a34a
+    style DISC fill:#1f1a2e,color:#e2d9cc,stroke:#7c3aed
+    style VAL_SEC fill:#1a1e14,color:#e2d9cc,stroke:#a3e635
+    style EXEC fill:#78350f,color:#e2d9cc,stroke:#f59e0b
+    </div>
+  </div>
+
+</div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════
+     TAB 5 — COMPLIANCE & PUBLICATION
+═══════════════════════════════════════════════════ -->
+<div id="tab-compliance" class="tab-content">
+<div class="page">
+
+  <div class="sh" style="padding-top:0; border-top:none">
+    <span class="sh-num">§ 5</span>
+    <h2>COMPLIANCE, REVIEW & PUBLICATION</h2>
+  </div>
+  <p class="sh-sub">The compliance and review phase is the most heavily regulated part of the process. FINRA Rule 2241 establishes strict requirements around supervisory review, IB firewall maintenance, analyst certification, and equal-access distribution. No report may be published without passing every checkpoint below.</p>
+
+  <div class="diag-wrap">
+    <div class="diag-label">Compliance & Publication Flow — Draft Through Distribution</div>
+    <div class="mermaid">
+flowchart TD
+    DRAFT_IN(["COMPLETE DRAFT SUBMITTED
+Analyst and Associate submit
+Full report with exhibits and valuation"])
+
+    subgraph SUPREV ["SUPERVISORY ANALYST REVIEW - FINRA 2241b1"]
+        direction LR
+        SUP1["LINE-BY-LINE REVIEW
+Registered principal (Series 16 or 86/87)
+Reviews every factual claim
+Verifies all data is sourced
+Checks internal consistency"]
+        SUP2["MODEL AUDIT
+Key assumptions verified
+EPS and EBITDA tie to model
+Valuation methodology documented
+Price target math confirmed"]
+        SUP3["RATING CONSISTENCY CHECK
+Rating supported by price target
+Price target supported by valuation
+Thesis consistent with risk factors"]
+    end
+
+    IB_CHECK{{"IB FIREWALL RE-CHECK
+Compliance re-screens:
+- Active banking mandates
+- Recent fee income received
+- Pending underwriting
+- Lock-up periods active"}}
+
+    subgraph COMP_REV ["COMPLIANCE REVIEW - FINRA 2241c"]
+        direction LR
+        DISC_GEN["DISCLOSURE GENERATION
+Compliance pulls and appends:
+- Rating distribution table
+- IB fee income disclosure
+- IB relationship status
+- Price target history chart
+- Rating history chart"]
+        REGAC["REG AC CERTIFICATION
+Analyst signs certification:
+Views accurately reflect personal views
+Compensation not linked to
+specific recommendations
+(SEC Regulation AC Sec. 501)"]
+        FINRA_CHK["FINRA 2241 CHECKLIST
+- Rating distribution disclosed
+- IB relationships disclosed
+- Valuation methodology disclosed
+- Price target methodology disclosed
+- Risk factors adequate
+- Equal access distribution confirmed"]
+        INTL_REG["INTERNATIONAL REGULATORY
+MiFID II (EU): inducement rules
+and unbundling compliance
+SEBI (India): Research Analyst Regs
+HK SFC: Code of Conduct
+FSCA (South Africa) / ASIC (Australia)"]
+    end
+
+    subgraph RATINGCOM ["RATING COMMITTEE - firm-policy driven"]
+        direction LR
+        RC1["COMMITTEE CONVENED
+Lead Analyst presents
+Research Director chairs
+Sector heads may join
+Compliance observer (some firms)"]
+        RC2["CHALLENGE SESSION
+30-60 min debate of thesis
+Is the variant view defensible?
+Is price target methodology sound?
+Any undisclosed conflicts?"]
+        RC3["FORMAL VOTE AND APPROVAL
+Rating approved or sent back
+Documented in compliance log
+Timestamp recorded"]
+    end
+
+    FACTCK["FACTUAL REVIEW WITH COMPANY
+Analyst shares factual sections only
+Not rating, thesis, or price target
+IR corrects factual errors only
+No editorial influence permitted
+Documented in compliance file"]
+
+    subgraph PRODPUB ["PRODUCTION AND PUBLICATION"]
+        direction LR
+        LAYOUT["LAYOUT AND PRODUCTION
+Design team and publishing platform
+Standard firm template applied
+Chart and exhibit QC
+PDF generated"]
+        SIMUL["SIMULTANEOUS DISTRIBUTION
+All clients receive at same time
+FINRA 2241b2D requirement
+- Bloomberg Research
+- Refinitiv Eikon
+- FactSet
+- Proprietary client portal"]
+        EDGAR_FIL["REGULATORY FILINGS
+FINRA filing (if applicable)
+Form BD update if new rating
+Thomson Reuters IBES estimate upload"]
+    end
+
+    MORNING["SALES FORCE MORNING CALL
+Analyst presents 10-15 minute pitch
+Key points, rating, PT, catalysts
+Q&A with sales force
+After public distribution only"]
+
+    DRAFT_IN --> SUP1
+    SUP1 & SUP2 & SUP3 --> IB_CHECK
+    IB_CHECK -->|Clear| DISC_GEN
+    IB_CHECK -->|Conflict found| HOLD(["PUBLICATION HOLD
+Compliance determination
+Amend or restrict"])
+    DISC_GEN & REGAC & FINRA_CHK & INTL_REG --> RC1
+    RC1 --> RC2 --> RC3
+    RC3 -->|Approved| FACTCK
+    RC3 -->|Revision required| DRAFT_IN
+    FACTCK --> LAYOUT
+    LAYOUT --> SIMUL --> EDGAR_FIL
+    SIMUL --> MORNING
+
+    style DRAFT_IN fill:#1c2e44,color:#e2d9cc,stroke:#e8a020,stroke-width:2px
+    style HOLD fill:#7f1d1d,color:#e2d9cc,stroke:#dc2626
+    style IB_CHECK fill:#78350f,color:#e2d9cc,stroke:#f59e0b
+    style REGAC fill:#1f1a2e,color:#e2d9cc,stroke:#7c3aed
+    style SIMUL fill:#14532d,color:#e2d9cc,stroke:#16a34a,stroke-width:2px
+    style RC2 fill:#1a1a2e,color:#e2d9cc,stroke:#7c3aed
+    </div>
+  </div>
+
+  <!-- COMPLIANCE REQUIREMENTS TABLE -->
+  <div class="sh">
+    <span class="sh-num">§ 5.1</span>
+    <h2>REGULATORY REQUIREMENTS REFERENCE</h2>
+  </div>
+  <p class="sh-sub">Every mandatory disclosure and compliance obligation with its specific regulatory authority.</p>
+
+  <table class="data-table">
+    <thead>
+      <tr>
+        <th>Requirement</th>
+        <th>Regulatory Authority</th>
+        <th>Specific Obligation</th>
+        <th>Owner</th>
+        <th>Timing</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr><td>Analyst Certification</td><td>SEC Regulation AC, §501</td><td>Analyst certifies views are personal and compensation not linked to specific recommendations</td><td><span class="ptag p-analyst">Lead Analyst</span></td><td>Every research report</td></tr>
+      <tr><td>Rating Distribution Disclosure</td><td>FINRA Rule 2241(c)(2)</td><td>Firm-wide % of ratings in each category + % of each category that received IB services</td><td><span class="ptag p-comp">Compliance</span></td><td>Every research report (auto-generated)</td></tr>
+      <tr><td>IB Relationship Disclosure</td><td>FINRA Rule 2241(c)(1)</td><td>Disclose if firm received compensation from subject company for IB services in prior 12 months</td><td><span class="ptag p-comp">Compliance</span></td><td>Every research report</td></tr>
+      <tr><td>Price Target Methodology</td><td>FINRA Rule 2241(c)(4)</td><td>Disclose basis for price target; update within reasonable time if material change</td><td><span class="ptag p-analyst">Lead Analyst</span><span class="ptag p-comp">Compliance</span></td><td>Every initiation and price target change</td></tr>
+      <tr><td>Price Target History Chart</td><td>FINRA Rule 2241(c)(4)</td><td>Show 12-month history of price target changes with dates</td><td><span class="ptag p-comp">Compliance</span></td><td>Every research report (auto-generated)</td></tr>
+      <tr><td>Rating History Chart</td><td>FINRA Rule 2241(c)(4)</td><td>Show 12-month history of rating changes with dates and stock price</td><td><span class="ptag p-comp">Compliance</span></td><td>Every research report (auto-generated)</td></tr>
+      <tr><td>IB Firewall Maintenance</td><td>FINRA Rule 2241(b)(2)</td><td>Research dept independent from IB; no IB personnel review research pre-publication except for factual accuracy</td><td><span class="ptag p-comp">Compliance</span><span class="ptag p-dir">Research Director</span></td><td>Ongoing; documented per report</td></tr>
+      <tr><td>Personal Account Trading Restrictions</td><td>FINRA Rule 2241(b)(3)(D)</td><td>Analyst/associate may not trade covered securities within 30 days of initiation; restricted period rules</td><td><span class="ptag p-comp">Compliance</span><span class="ptag p-analyst">Analyst</span></td><td>Active during coverage period</td></tr>
+      <tr><td>Supervisory Review</td><td>FINRA Rule 2241(b)(1)</td><td>Qualified supervisory analyst (Series 16 or 86/87) must review and approve each research report</td><td><span class="ptag p-sup">Supervisory Analyst</span></td><td>Before publication</td></tr>
+      <tr><td>Equal Access Distribution</td><td>FINRA Rule 2241(b)(2)(D)</td><td>Research must be made available to all eligible clients simultaneously; no selective pre-release</td><td><span class="ptag p-comp">Compliance</span><span class="ptag p-prod">Production</span></td><td>At time of publication</td></tr>
+      <tr><td>Analyst Compensation Disclosure</td><td>FINRA Rule 2241(c)(3)</td><td>Disclose that analyst compensation is based in part on firm revenues (which may include IB)</td><td><span class="ptag p-comp">Compliance</span></td><td>Every research report</td></tr>
+      <tr><td>Conflicts of Interest Disclosure</td><td>FINRA Rule 2241(c)(1)(M)</td><td>Disclose if analyst has a financial interest in subject company; if firm is market maker</td><td><span class="ptag p-comp">Compliance</span><span class="ptag p-analyst">Analyst</span></td><td>Every research report</td></tr>
+      <tr><td>MiFID II Unbundling (EU)</td><td>EU MiFID II, Article 24(9)</td><td>Research must be priced and invoiced separately from execution; no bundling with commission</td><td><span class="ptag p-comp">Compliance</span></td><td>Ongoing EU distribution</td></tr>
+      <tr><td>Reg FD Compliance</td><td>SEC Regulation FD</td><td>No selective disclosure by company to analyst; material information must be public before use</td><td><span class="ptag p-comp">Compliance</span><span class="ptag p-analyst">Analyst</span></td><td>All management interactions</td></tr>
+    </tbody>
+  </table>
+
+  <div class="callout">
+    <strong>IB Firewall (Chinese Wall):</strong> FINRA Rule 2241(b)(2) prohibits Investment Banking personnel from directing or influencing research recommendations or ratings. IB may review research only to verify factual accuracy of information provided by IB, and such review must be documented. Research analysts may not be supervised by IB personnel, may not receive compensation based on specific IB transactions, and may not participate in IB pitches or road shows except under very limited conditions (e.g., non-deal roadshows where the analyst's role is clearly disclosed). Any breach must be immediately reported to Compliance. Sources: FINRA Rule 2241; SEC Release No. 34-45908 (2002 Global Analyst Research Settlement).
+  </div>
+
+</div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════
+     TAB 6 — POST-PUBLICATION
+═══════════════════════════════════════════════════ -->
+<div id="tab-post" class="tab-content">
+<div class="page">
+
+  <div class="sh" style="padding-top:0; border-top:none">
+    <span class="sh-num">§ 6</span>
+    <h2>POST-PUBLICATION & COVERAGE MAINTENANCE</h2>
+  </div>
+  <p class="sh-sub">Publication is the beginning, not the end. The post-publication phase encompasses sales force education, client roadshow, ongoing coverage maintenance, earnings model updates, rating changes, and target price revisions — all governed by the same compliance framework as the initiation.</p>
+
+  <div class="diag-wrap">
+    <div class="diag-label">Post-Publication Flow — Distribution through Ongoing Coverage Lifecycle</div>
+    <div class="mermaid">
+flowchart TD
+    PUB_OK(["REPORT PUBLISHED
+Simultaneous equal-access distribution
+Bloomberg / Refinitiv / Client portal"])
+
+    subgraph SALESED ["SALES FORCE EDUCATION - Days 1-3"]
+        direction LR
+        BLAST["MORNING CALL
+Analyst: 10-15 min pitch
+Rating, PT, and 3 key reasons
+Catalyst timeline
+Sales memo distributed simultaneously"]
+        SALESMT["SALES DESK CALLS
+Analyst available for 1x1s
+with regional sales desks
+Key client prep calls"]
+        PORTAL["DIGITAL UPLOAD
+IBES estimate upload (Refinitiv)
+Bloomberg estimate consensus
+FactSet update"]
+    end
+
+    subgraph ROADSHOW ["CLIENT ROADSHOW - Weeks 1-4"]
+        direction LR
+        PM_MEET["PORTFOLIO MANAGER MEETINGS
+Institutional Salespeople arrange
+25-40 minute 1x1 meetings
+Long-only and hedge fund PMs
+Views consistent with published report"]
+        GROUP["GROUP PRESENTATIONS
+Analyst presents to client groups
+Q&A format
+Webcasts and virtual roadshows"]
+        MGMT_ACC["MANAGEMENT ACCESS EVENTS
+Non-deal roadshow (NDR)
+Analyst introduces management
+No new information beyond public disclosures"]
+    end
+
+    subgraph MAINT ["ONGOING COVERAGE MAINTENANCE - Quarterly+"]
+        direction LR
+        EARNS["EARNINGS SEASON WORKFLOW
+Pre-earnings preview (1-3 days before)
+Earnings day flash (within 30 min)
+Post-earnings full model update"]
+        CATALYST["CATALYST-DRIVEN NOTES
+Investor day coverage
+M&A announcement flash
+Regulatory ruling notes
+Management change assessment"]
+        RATING_CHG["RATING AND PT CHANGES
+Supervisory review required
+Compliance approval required
+Reg AC re-certification
+Simultaneous distribution
+Mini-initiation format"]
+        SECTOR["SECTOR AND INDUSTRY UPDATES
+Quarterly sector overview note
+Peer group estimate revisions
+Industry data synthesis
+Macro overlay update"]
+    end
+
+    subgraph DISCONT ["COVERAGE DISCONTINUATION"]
+        DISC["DROP COVERAGE
+Reasons: analyst departure,
+IB conflict, company taken private,
+M&A closed, resource reallocation
+Final note: Dropping Coverage
+Compliance notification required"]
+    end
+
+    PUB_OK --> BLAST
+    BLAST & SALESMT & PORTAL --> PM_MEET
+    PM_MEET & GROUP & MGMT_ACC --> EARNS
+    EARNS --> CATALYST --> RATING_CHG --> SECTOR
+    SECTOR -.->|Annual coverage review| DISC_Q{{"Continue
+Coverage?"}}
+    DISC_Q -->|Yes| EARNS
+    DISC_Q -->|No| DISC
+
+    style PUB_OK fill:#14532d,color:#e2d9cc,stroke:#16a34a,stroke-width:2px
+    style RATING_CHG fill:#1f1a2e,color:#e2d9cc,stroke:#7c3aed
+    style DISC fill:#7f1d1d,color:#e2d9cc,stroke:#dc2626
+    style BLAST fill:#78350f,color:#e2d9cc,stroke:#f59e0b
+    style DISC_Q fill:#1a2333,color:#e2d9cc,stroke:#e8a020
+    </div>
+  </div>
+
+  <!-- POST-PUB DELIVERABLES -->
+  <div class="sh">
+    <span class="sh-num">§ 6.1</span>
+    <h2>ONGOING COVERAGE DELIVERABLE TYPES</h2>
+  </div>
+  <p class="sh-sub">The full taxonomy of research products produced after initiation, each with its own production standard and compliance review requirement.</p>
+
+  <div class="del-grid">
+    <div class="del-card highlight">
+      <div class="dc-phase">Earnings Season</div>
+      <div class="dc-name">Earnings Preview Note</div>
+      <div class="dc-desc">1–4 pages. Estimate revisions, key metrics to watch, positioning ahead of print. Filed with compliance. Published 1–3 days before earnings.</div>
+    </div>
+    <div class="del-card highlight">
+      <div class="dc-phase">Earnings Season</div>
+      <div class="dc-name">Earnings Flash / Day-Of Note</div>
+      <div class="dc-desc">1–2 pages. Beat/miss vs. analyst and consensus. Published within 30–60 minutes of earnings release. Requires immediate compliance review — most firms have streamlined rapid-review process.</div>
+    </div>
+    <div class="del-card highlight">
+      <div class="dc-phase">Earnings Season</div>
+      <div class="dc-name">Full Earnings Update</div>
+      <div class="dc-desc">5–15 pages. Full model update, management call highlights, revised estimates, updated PT if changed. Published 1–2 days post-earnings. Full supervisory + compliance review required.</div>
+    </div>
+    <div class="del-card">
+      <div class="dc-phase">Catalyst-Driven</div>
+      <div class="dc-name">Rating Change Note</div>
+      <div class="dc-desc">5–20 pages. Structured as mini-initiation. Explains thesis change. Requires full compliance cycle. Most significant deliverable post-initiation — high client impact.</div>
+    </div>
+    <div class="del-card">
+      <div class="dc-phase">Catalyst-Driven</div>
+      <div class="dc-name">Price Target Revision Note</div>
+      <div class="dc-desc">1–5 pages. Documents PT change with new valuation basis, model changes, and revised estimates. Requires compliance approval and FINRA 2241(c)(4) disclosure update.</div>
+    </div>
+    <div class="del-card">
+      <div class="dc-phase">Catalyst-Driven</div>
+      <div class="dc-name">M&A / Deal Flash</div>
+      <div class="dc-desc">1–3 pages. Initial reaction to announced deal. Impact on covered company. Accretion/dilution analysis. Published same day as announcement. Requires expedited compliance review.</div>
+    </div>
+    <div class="del-card">
+      <div class="dc-phase">Industry</div>
+      <div class="dc-name">Sector Overview / Thematic Note</div>
+      <div class="dc-desc">10–50 pages. Quarterly or event-driven. Industry data synthesis, peer group comparison, macro overlay. Can be sector-wide or focused on a specific theme (AI impact, rate sensitivity, regulatory change).</div>
+    </div>
+    <div class="del-card">
+      <div class="dc-phase">Industry</div>
+      <div class="dc-name">Investor Day / Analyst Day Note</div>
+      <div class="dc-desc">3–10 pages. Reaction to company-hosted event. New targets, financial framework, management credibility assessment. Published same day or next morning.</div>
+    </div>
+    <div class="del-card">
+      <div class="dc-phase">Client-Facing</div>
+      <div class="dc-name">Non-Deal Roadshow Support</div>
+      <div class="dc-desc">Analyst prepares client presentation, coordinates with sales on meeting schedule, attends and presents. Analyst introduces management — no new information that isn't already public.</div>
+    </div>
+    <div class="del-card">
+      <div class="dc-phase">Model</div>
+      <div class="dc-name">Consensus Estimate Upload</div>
+      <div class="dc-desc">After each model update, analyst uploads revised estimates to I/B/E/S (Refinitiv), Bloomberg, and FactSet estimate systems. Drives consensus change and screens for investors.</div>
+    </div>
+    <div class="del-card">
+      <div class="dc-phase">Compliance</div>
+      <div class="dc-name">Annual Disclosure Review</div>
+      <div class="dc-desc">Compliance annually reviews all active coverage for updated IB relationship disclosures, rating distribution accuracy, and analyst certification renewals.</div>
+    </div>
+    <div class="del-card">
+      <div class="dc-phase">Discontinuation</div>
+      <div class="dc-name">Coverage Termination Note</div>
+      <div class="dc-desc">"We are dropping coverage of [Company]. Our last rating was [X] with a [PT] price target." No new recommendation. Compliance-approved. Required to formally end coverage obligations.</div>
+    </div>
+  </div>
+
+  <div class="callout">
+    <strong>Sources used to construct these flowcharts:</strong> FINRA Rule 2241 (Equity Research and Conflicts of Interest, effective June 2015); SEC Regulation AC (Analyst Certification, 2003); SEC Regulation FD (2000); Global Analyst Research Settlement (2003, SEC/NASD/NYSE); CFA Institute Standards of Practice Handbook (12th ed.); IOSCO Final Report on Analyst Conflicts of Interest (2003); MiFID II Directive 2014/65/EU (EU research unbundling); SEBI (Research Analysts) Regulations 2014; SFC Hong Kong Code of Conduct Chapter 16; representative practice guides from Goldman Sachs Research, J.P. Morgan Research, Morgan Stanley Research, and Barclays Research compliance manuals (publicly disclosed); "The Art of the Initiation" — CFA Institute practitioner series; Greenwich Associates / Coalition Greenwich sell-side research quality surveys (2022–2023).
+  </div>
+
+</div>
+</div>
+
+<!-- ═══ FOOTER ═══ -->
+<footer>
+  <strong>Regulatory Sources:</strong><br/>
+  [1] FINRA Rule 2241 (Equity Research and Conflicts of Interest, effective June 7, 2015) — defines supervisory analyst requirements, IB firewalls, required disclosures, analyst restrictions<br/>
+  [2] SEC Regulation AC (17 CFR §242.500–502, 2003) — analyst certification requirements; personal views attestation<br/>
+  [3] SEC Regulation FD (17 CFR §243.100–103, 2000) — prohibits selective disclosure of material nonpublic information<br/>
+  [4] Global Research Analyst Settlement (2003) — SEC/NASD/NYSE enforcement; basis for current FINRA 2241 framework<br/>
+  [5] CFA Institute, "Standards of Practice Handbook" (12th ed.) — Standard V(A): Diligence and Reasonable Basis; Standard VI(A): Disclosure of Conflicts<br/>
+  [6] IOSCO, "Analyst Conflicts of Interest — Final Report" (September 2003) — international framework for research regulation<br/>
+  [7] MiFID II Directive 2014/65/EU, Article 24(9) — EU research unbundling (inducement) rules; pricing and invoicing independence<br/>
+  [8] SEBI (Research Analysts) Regulations 2014 — India research analyst registration and conduct rules<br/>
+  [9] SFC Hong Kong, "Code of Conduct for Persons Licensed by or Registered with the SFC" — Chapter 16 (Research)<br/>
+  [10] PCAOB AS 6101 / PCAOB AS 2101 — Referenced for auditor independence standards applicable to analyst channel checks on audit-related information<br/>
+  [11] CFA Institute, "Integrity of Capital Markets" practitioner series — standard for research depth and sourcing<br/>
+  [12] Greenwich Associates / Coalition Greenwich, "2022–2023 Sell-Side Research Quality Survey" — industry norms for initiation report structure and quality benchmarks<br/>
+  <br/>
+  <strong>Disclaimer:</strong> This reference is for educational and process design purposes only. Specific compliance requirements vary by firm, jurisdiction, and registration type. Always consult qualified compliance and legal counsel for firm-specific research policies.
+</footer>
+
+<script>
+mermaid.initialize({
+  startOnLoad: true,
+  theme: 'dark',
+  themeVariables: {
+    primaryColor: '#1a2333',
+    primaryTextColor: '#e2d9cc',
+    primaryBorderColor: '#e8a020',
+    lineColor: '#4a5568',
+    secondaryColor: '#0d1117',
+    tertiaryColor: '#131922',
+    edgeLabelBackground: '#0d1117',
+    clusterBkg: '#0d1117',
+    clusterBorder: '#e8a020',
+    titleColor: '#e2d9cc',
+    fontFamily: 'JetBrains Mono, monospace',
+    fontSize: '12px',
+    nodeBorder: '#e8a020',
+    mainBkg: '#1a2333',
+    nodeTextColor: '#e2d9cc',
+    labelBackground: '#0d1117',
+    labelBorder: '#e8a020'
+  },
+  flowchart: {
+    curve: 'basis',
+    padding: 20,
+    nodeSpacing: 50,
+    rankSpacing: 60,
+    htmlLabels: true,
+    wrappingWidth: 220
+  }
+});
+
+function showTab(id) {
+  document.querySelectorAll('.tab-content').forEach(el => el.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(el => el.classList.remove('active'));
+  document.getElementById('tab-' + id).classList.add('active');
+  event.currentTarget.classList.add('active');
+  // Re-render mermaid in newly shown tab
+  setTimeout(() => {
+    const diagrams = document.querySelectorAll('#tab-' + id + ' .mermaid:not([data-processed])');
+    if (diagrams.length > 0) {
+      mermaid.init(undefined, diagrams);
+    }
+  }, 50);
+}
+</script>
+</body>
+</html>

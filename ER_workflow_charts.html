@@ -1,0 +1,868 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Equity Research Coverage Initiation — All Workflow Charts</title>
+<style>
+  * { box-sizing: border-box; }
+  body { margin: 0; padding: 20px 40px; background: #f0f2f5; font-family: Arial, sans-serif; color: #2E4057; }
+  h1 { text-align: center; color: #2E4057; margin-bottom: 5px; font-size: 28px; }
+  .subtitle { text-align: center; color: #1F3864; font-size: 16px; margin-bottom: 8px; }
+  .version-note { text-align: center; color: #888; font-size: 12px; margin-top: 0; margin-bottom: 20px; font-style: italic; }
+
+  .stats-bar { display: flex; justify-content: center; gap: 20px; margin: 20px 0 28px; flex-wrap: wrap; }
+  .stat-box { padding: 12px 22px; border-radius: 10px; text-align: center; font-weight: bold;
+               min-width: 130px; font-size: 14px; }
+
+  .legend { display: flex; justify-content: center; gap: 22px; margin: 0 0 28px; font-size: 13px; flex-wrap: wrap; }
+  .legend-item { display: flex; align-items: center; gap: 6px; }
+  .legend-swatch { width: 18px; height: 18px; border-radius: 3px; border: 2px solid; flex-shrink: 0; }
+
+  .toc { background: white; border-radius: 12px; padding: 20px 30px;
+         box-shadow: 0 2px 8px rgba(0,0,0,0.08); margin-bottom: 30px; }
+  .toc h2 { margin: 0 0 12px; font-size: 18px; color: #2E4057; }
+  .toc-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(280px, 1fr)); gap: 8px; }
+  .toc-item { font-size: 14px; }
+  .toc-item a { text-decoration: none; }
+  .toc-item a:hover { text-decoration: underline; }
+  .toc-ph { display: inline-block; width: 14px; height: 14px; border-radius: 2px;
+             vertical-align: middle; margin-right: 6px; margin-bottom: 1px; }
+
+  .chart-section { background: white; border-radius: 12px; padding: 25px 30px;
+                   box-shadow: 0 2px 8px rgba(0,0,0,0.08); margin-bottom: 30px;
+                   overflow-x: auto; border-left: 6px solid #2E4057; }
+  .chart-section h2 { margin: 0 0 6px; color: #2E4057; font-size: 20px;
+                      border-bottom: 2px solid #e0e4ea; padding-bottom: 8px; }
+  .chart-meta { font-size: 12px; color: #888; margin-bottom: 14px; }
+
+  .copy-btn { float: right; font-size: 12px; padding: 4px 12px; cursor: pointer;
+              border: 1px solid #ccc; border-radius: 4px; background: #f8f9fa; color: #555; }
+  .copy-btn:hover { background: #e8edf2; }
+
+  /* Phase badge colors in TOC/headers */
+  .ph-badge { display: inline-block; font-size: 10px; font-weight: 700; padding: 2px 7px;
+              border-radius: 2px; color: #fff; letter-spacing: .5px; vertical-align: middle; margin-right: 8px; }
+
+  @media print { .chart-section { break-inside: avoid; page-break-inside: avoid; } .copy-btn { display: none; } }
+</style>
+</head>
+<body>
+
+<h1>Equity Research Coverage Initiation — All Workflow Charts</h1>
+<p class="subtitle">8 Mermaid Charts &nbsp;|&nbsp; 86 Work Steps &nbsp;|&nbsp; 7 Phases &nbsp;|&nbsp; LLM Capability Classification</p>
+<p class="version-note">February 2026</p>
+
+<div class="stats-bar">
+  <div class="stat-box" style="background:#C6EFCE;color:#006100;border:2px solid #006100">
+    30 GREEN (35%)<br><span style="font-size:11px">Fully LLM-Capable</span>
+  </div>
+  <div class="stat-box" style="background:#FFEB9C;color:#9C6500;border:2px solid #9C6500">
+    28 YELLOW (33%)<br><span style="font-size:11px">Hybrid — LLM Drafts, Human Reviews</span>
+  </div>
+  <div class="stat-box" style="background:#FCE4D6;color:#833C00;border:2px solid #833C00">
+    18 ORANGE (21%)<br><span style="font-size:11px">Human-Required</span>
+  </div>
+  <div class="stat-box" style="background:#EDEDED;color:#595959;border:2px solid #595959">
+    10 GRAY (11%)<br><span style="font-size:11px">External / Client / Regulatory</span>
+  </div>
+</div>
+
+<div class="legend">
+  <div class="legend-item"><div class="legend-swatch" style="background:#C6EFCE;border-color:#006100"></div>GREEN — Extraction, verification, calculation (LLM autonomous)</div>
+  <div class="legend-item"><div class="legend-swatch" style="background:#FFEB9C;border-color:#9C6500"></div>YELLOW — Analysis, modeling, narrative drafting (LLM + human sign-off)</div>
+  <div class="legend-item"><div class="legend-swatch" style="background:#FCE4D6;border-color:#833C00"></div>ORANGE — Meetings, decisions, relationship-driven (human-required)</div>
+  <div class="legend-item"><div class="legend-swatch" style="background:#EDEDED;border-color:#595959"></div>GRAY — Distribution, filings, client actions (external / regulatory)</div>
+  <div class="legend-item"><div class="legend-swatch" style="background:#2E4057;border-color:#2E4057"></div>Phase / Step Header</div>
+  <div class="legend-item"><div class="legend-swatch" style="background:#3B5998;border-color:#3B5998"></div>Quality Gate / Compliance Checkpoint</div>
+</div>
+
+<div class="toc">
+  <h2>Charts</h2>
+  <div class="toc-grid">
+    <div class="toc-item"><a href="#chart-0" style="color:#2E4057"><span class="toc-ph" style="background:#2E4057"></span>Overview — All Phases</a></div>
+    <div class="toc-item"><a href="#chart-1" style="color:#1F3864"><span class="toc-ph" style="background:#1F3864"></span>P1 — Approval &amp; Scoping</a></div>
+    <div class="toc-item"><a href="#chart-2" style="color:#1A4D3A"><span class="toc-ph" style="background:#1A4D3A"></span>P2 — Research &amp; Due Diligence</a></div>
+    <div class="toc-item"><a href="#chart-3" style="color:#7B4F00"><span class="toc-ph" style="background:#7B4F00"></span>P3 — Financial Modeling</a></div>
+    <div class="toc-item"><a href="#chart-4" style="color:#3D1A66"><span class="toc-ph" style="background:#3D1A66"></span>P4 — Report Writing</a></div>
+    <div class="toc-item"><a href="#chart-5" style="color:#6B0E1E"><span class="toc-ph" style="background:#6B0E1E"></span>P5 — Review &amp; Compliance</a></div>
+    <div class="toc-item"><a href="#chart-6" style="color:#004D4D"><span class="toc-ph" style="background:#004D4D"></span>P6 — Publication &amp; Distribution</a></div>
+    <div class="toc-item"><a href="#chart-7" style="color:#2D3748"><span class="toc-ph" style="background:#2D3748"></span>P7 — Post-Publication &amp; Maintenance</a></div>
+  </div>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════
+     CHART 0: OVERVIEW
+═══════════════════════════════════════════════════════ -->
+<div class="chart-section" id="chart-0" style="border-left-color:#2E4057">
+  <h2><button class="copy-btn" onclick="copyChart(0)">Copy Mermaid Code</button>Overview <span style="font-size:13px;color:#888;font-weight:normal">(All 7 Phases)</span></h2>
+  <div class="chart-meta">86 work steps &nbsp;·&nbsp; 5 decisions &nbsp;·&nbsp; 4 quality gates &nbsp;·&nbsp; ~8–10 weeks to publication</div>
+  <div class="mermaid" id="mermaid-0">
+flowchart TD
+    classDef p1 fill:#1F3864,stroke:#1F3864,color:#FFFFFF,stroke-width:2px
+    classDef p2 fill:#1A4D3A,stroke:#1A4D3A,color:#FFFFFF,stroke-width:2px
+    classDef p3 fill:#7B4F00,stroke:#7B4F00,color:#FFFFFF,stroke-width:2px
+    classDef p4 fill:#3D1A66,stroke:#3D1A66,color:#FFFFFF,stroke-width:2px
+    classDef p5 fill:#6B0E1E,stroke:#6B0E1E,color:#FFFFFF,stroke-width:2px
+    classDef p6 fill:#004D4D,stroke:#004D4D,color:#FFFFFF,stroke-width:2px
+    classDef p7 fill:#2D3748,stroke:#2D3748,color:#FFFFFF,stroke-width:2px
+    classDef gate fill:#3B5998,stroke:#3B5998,color:#FFFFFF,stroke-width:2px
+    classDef block fill:#FFC7CE,stroke:#9C0006,color:#9C0006,stroke-width:2px
+    classDef start fill:#2E4057,stroke:#2E4057,color:#FFFFFF,stroke-width:2px
+
+    TRIG(["COVERAGE TRIGGER — Analyst identifies opportunity / New IPO / Sector expansion / Client demand"]):::start
+    P1["P1: Approval and Scoping — 8 steps — Weeks 1-2"]:::p1
+    G1{{"GATE 1: IB Wall Confirmed + Director Approval"}}:::gate
+    BLOCK(["COVERAGE BLOCKED — Compliance determination"]):::block
+    P2["P2: Research and Due Diligence — 19 steps — Weeks 2-6"]:::p2
+    P3["P3: Financial Modeling — 17 steps — Weeks 4-7"]:::p3
+    G2{{"GATE 2: Model and Valuation Sign-Off"}}:::gate
+    P4["P4: Report Writing — 12 steps — Weeks 6-9"]:::p4
+    P5["P5: Review and Compliance — 14 steps — Weeks 8-10"]:::p5
+    G3{{"GATE 3: Compliance Sign-Off + Rating Committee"}}:::gate
+    P6["P6: Publication and Distribution — 9 steps — Week 10"]:::p6
+    G4{{"GATE 4: Equal-Access Distribution Confirmed"}}:::gate
+    P7["P7: Post-Publication and Maintenance — 7 steps — Ongoing"]:::p7
+
+    TRIG --> P1
+    P1 --> G1
+    G1 -->|No conflict| P2
+    G1 -->|Conflict found| BLOCK
+    P2 --> P3
+    P3 --> G2
+    G2 --> P4
+    P4 --> P5
+    P5 --> G3
+    G3 --> P6
+    P6 --> G4
+    G4 --> P7
+  </div>
+  <textarea id="code-0" style="display:none">flowchart TD
+    classDef p1 fill:#1F3864,stroke:#1F3864,color:#FFFFFF,stroke-width:2px
+    classDef p2 fill:#1A4D3A,stroke:#1A4D3A,color:#FFFFFF,stroke-width:2px
+    classDef p3 fill:#7B4F00,stroke:#7B4F00,color:#FFFFFF,stroke-width:2px
+    classDef p4 fill:#3D1A66,stroke:#3D1A66,color:#FFFFFF,stroke-width:2px
+    classDef p5 fill:#6B0E1E,stroke:#6B0E1E,color:#FFFFFF,stroke-width:2px
+    classDef p6 fill:#004D4D,stroke:#004D4D,color:#FFFFFF,stroke-width:2px
+    classDef p7 fill:#2D3748,stroke:#2D3748,color:#FFFFFF,stroke-width:2px
+    classDef gate fill:#3B5998,stroke:#3B5998,color:#FFFFFF,stroke-width:2px
+    classDef block fill:#FFC7CE,stroke:#9C0006,color:#9C0006,stroke-width:2px
+    classDef start fill:#2E4057,stroke:#2E4057,color:#FFFFFF,stroke-width:2px
+
+    TRIG(["COVERAGE TRIGGER — Analyst identifies opportunity"]):::start
+    P1["P1: Approval and Scoping — 8 steps — Weeks 1-2"]:::p1
+    G1{{"GATE 1: IB Wall Confirmed + Director Approval"}}:::gate
+    BLOCK(["COVERAGE BLOCKED — Compliance determination"]):::block
+    P2["P2: Research and Due Diligence — 19 steps — Weeks 2-6"]:::p2
+    P3["P3: Financial Modeling — 17 steps — Weeks 4-7"]:::p3
+    G2{{"GATE 2: Model and Valuation Sign-Off"}}:::gate
+    P4["P4: Report Writing — 12 steps — Weeks 6-9"]:::p4
+    P5["P5: Review and Compliance — 14 steps — Weeks 8-10"]:::p5
+    G3{{"GATE 3: Compliance Sign-Off + Rating Committee"}}:::gate
+    P6["P6: Publication and Distribution — 9 steps — Week 10"]:::p6
+    G4{{"GATE 4: Equal-Access Distribution Confirmed"}}:::gate
+    P7["P7: Post-Publication and Maintenance — 7 steps — Ongoing"]:::p7
+
+    TRIG --> P1
+    P1 --> G1
+    G1 -->|No conflict| P2
+    G1 -->|Conflict found| BLOCK
+    P2 --> P3
+    P3 --> G2
+    G2 --> P4
+    P4 --> P5
+    P5 --> G3
+    G3 --> P6
+    P6 --> G4
+    G4 --> P7</textarea>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════
+     CHART 1: P1 APPROVAL & SCOPING
+═══════════════════════════════════════════════════════ -->
+<div class="chart-section" id="chart-1" style="border-left-color:#1F3864">
+  <h2><button class="copy-btn" onclick="copyChart(1)">Copy Mermaid Code</button><span class="ph-badge" style="background:#1F3864">P1</span>Approval &amp; Scoping <span style="font-size:13px;color:#888;font-weight:normal">(2G / 2Y / 3O / 1E — 8 steps)</span></h2>
+  <div class="chart-meta">Weeks 1–2 &nbsp;·&nbsp; Lead Analyst + Research Director + Compliance &nbsp;·&nbsp; IB firewall confirmation required before research begins</div>
+  <div class="mermaid" id="mermaid-1">
+flowchart TD
+    classDef green fill:#C6EFCE,stroke:#006100,color:#006100,stroke-width:2px
+    classDef yellow fill:#FFEB9C,stroke:#9C6500,color:#9C6500,stroke-width:2px
+    classDef orange fill:#FCE4D6,stroke:#833C00,color:#833C00,stroke-width:2px
+    classDef ext fill:#EDEDED,stroke:#595959,color:#595959,stroke-width:2px
+    classDef phase fill:#2E4057,stroke:#2E4057,color:#FFFFFF,stroke-width:2px
+    classDef gate fill:#3B5998,stroke:#3B5998,color:#FFFFFF,stroke-width:2px
+    classDef block fill:#FFC7CE,stroke:#9C0006,color:#9C0006,stroke-width:2px
+
+    TITLE["P1: Approval and Scoping — Steps 1-8"]:::phase
+    style TITLE fill:#1F3864,stroke:#1F3864,color:#FFFFFF
+
+    S1["Step 1: Coverage Request and Universe Selection"]:::phase
+    N1a["1: Analyst submits coverage request to Research Director"]:::orange
+    N1b["1: Coverage universe drafted from sector watchlist"]:::green
+
+    S2["Step 2: IB Conflict and Restricted List Screen"]:::phase
+    N2a["2: Active mandate and restricted list check by Compliance"]:::orange
+    N2b["2: Quiet period and grey-list verification"]:::orange
+    G1{{"GATE 1: Conflict Decision by Compliance"}}:::gate
+    BLOCK(["BLOCKED — Coverage cannot proceed"]):::block
+
+    S3["Step 3: Research Director Approval"]:::phase
+    N3a["3: Director approves sector, company, and analyst assignment"]:::orange
+    N3b["3: Resource allocation and 8-10 week timeline set"]:::yellow
+
+    S4["Step 4: Compliance Onboarding"]:::phase
+    N4a["4: Analyst and associate register coverage with Compliance"]:::ext
+    N4b["4: Personal account trading restrictions applied — FINRA 2241"]:::orange
+    N4c["4: Conflict disclosure checklist completed and filed"]:::green
+
+    TITLE --> S1
+    S1 --> N1a & N1b
+    N1a & N1b --> S2
+    S2 --> N2a --> N2b --> G1
+    G1 -->|No conflict| S3
+    G1 -->|Conflict found| BLOCK
+    S3 --> N3a & N3b
+    N3a & N3b --> S4
+    S4 --> N4a & N4b & N4c
+  </div>
+  <textarea id="code-1" style="display:none">flowchart TD
+    classDef green fill:#C6EFCE,stroke:#006100,color:#006100,stroke-width:2px
+    classDef yellow fill:#FFEB9C,stroke:#9C6500,color:#9C6500,stroke-width:2px
+    classDef orange fill:#FCE4D6,stroke:#833C00,color:#833C00,stroke-width:2px
+    classDef ext fill:#EDEDED,stroke:#595959,color:#595959,stroke-width:2px
+    classDef phase fill:#2E4057,stroke:#2E4057,color:#FFFFFF,stroke-width:2px
+    classDef gate fill:#3B5998,stroke:#3B5998,color:#FFFFFF,stroke-width:2px
+    classDef block fill:#FFC7CE,stroke:#9C0006,color:#9C0006,stroke-width:2px
+
+    TITLE["P1: Approval and Scoping — Steps 1-8"]:::phase
+    style TITLE fill:#1F3864,stroke:#1F3864,color:#FFFFFF
+
+    S1["Step 1: Coverage Request and Universe Selection"]:::phase
+    N1a["1: Analyst submits coverage request to Research Director"]:::orange
+    N1b["1: Coverage universe drafted from sector watchlist"]:::green
+
+    S2["Step 2: IB Conflict and Restricted List Screen"]:::phase
+    N2a["2: Active mandate and restricted list check by Compliance"]:::orange
+    N2b["2: Quiet period and grey-list verification"]:::orange
+    G1{{"GATE 1: Conflict Decision by Compliance"}}:::gate
+    BLOCK(["BLOCKED — Coverage cannot proceed"]):::block
+
+    S3["Step 3: Research Director Approval"]:::phase
+    N3a["3: Director approves sector, company, and analyst assignment"]:::orange
+    N3b["3: Resource allocation and 8-10 week timeline set"]:::yellow
+
+    S4["Step 4: Compliance Onboarding"]:::phase
+    N4a["4: Analyst and associate register coverage with Compliance"]:::ext
+    N4b["4: Personal account trading restrictions applied — FINRA 2241"]:::orange
+    N4c["4: Conflict disclosure checklist completed and filed"]:::green
+
+    TITLE --> S1
+    S1 --> N1a & N1b
+    N1a & N1b --> S2
+    S2 --> N2a --> N2b --> G1
+    G1 -->|No conflict| S3
+    G1 -->|Conflict found| BLOCK
+    S3 --> N3a & N3b
+    N3a & N3b --> S4
+    S4 --> N4a & N4b & N4c</textarea>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════
+     CHART 2: P2 RESEARCH & DUE DILIGENCE
+═══════════════════════════════════════════════════════ -->
+<div class="chart-section" id="chart-2" style="border-left-color:#1A4D3A">
+  <h2><button class="copy-btn" onclick="copyChart(2)">Copy Mermaid Code</button><span class="ph-badge" style="background:#1A4D3A">P2</span>Research &amp; Due Diligence <span style="font-size:13px;color:#888;font-weight:normal">(7G / 5Y / 6O / 1E — 19 steps)</span></h2>
+  <div class="chart-meta">Weeks 2–6 &nbsp;·&nbsp; Lead Analyst + Associate primary &nbsp;·&nbsp; Expert call pre-approval required per MNPI rules; Reg FD governs management access</div>
+  <div class="mermaid" id="mermaid-2">
+flowchart TD
+    classDef green fill:#C6EFCE,stroke:#006100,color:#006100,stroke-width:2px
+    classDef yellow fill:#FFEB9C,stroke:#9C6500,color:#9C6500,stroke-width:2px
+    classDef orange fill:#FCE4D6,stroke:#833C00,color:#833C00,stroke-width:2px
+    classDef ext fill:#EDEDED,stroke:#595959,color:#595959,stroke-width:2px
+    classDef phase fill:#2E4057,stroke:#2E4057,color:#FFFFFF,stroke-width:2px
+    classDef gate fill:#3B5998,stroke:#3B5998,color:#FFFFFF,stroke-width:2px
+
+    TITLE["P2: Research and Due Diligence — Steps 9-27"]:::phase
+    style TITLE fill:#1A4D3A,stroke:#1A4D3A,color:#FFFFFF
+
+    S5["Step 5: Desk Research Foundation"]:::phase
+    N5a["5a: Download all SEC filings — 10-K, 10-Q, 8-K, proxy"]:::green
+    N5b["5b: Compile earnings call transcript library — 5+ years"]:::green
+    N5c["5c: Aggregate third-party industry reports — Gartner, IBISWorld"]:::green
+    N5d["5d: Compile sell-side prior coverage if available"]:::green
+
+    S6["Step 6: Management Access"]:::phase
+    N6a["6a: Introductory call with Investor Relations — intro only"]:::orange
+    N6b["6b: C-suite meeting — CEO, CFO, COO deep-dive"]:::orange
+    N6c["6c: Segment head meetings — business unit level detail"]:::orange
+    N6d["6d: Capital allocation and strategy session"]:::orange
+
+    S7["Step 7: Expert Network Diligence"]:::phase
+    N7a["7a: Compliance pre-clears all expert calls — MNPI screen"]:::ext
+    N7b["7b: GLG or Gerson Lehrman expert calls — former executives"]:::orange
+    N7c["7c: Channel checks — distributors, customers, competitors"]:::orange
+    N7d["7d: Industry conference one-on-one meetings"]:::orange
+
+    S8["Step 8: Competitive and Sector Analysis"]:::phase
+    N8a["8a: Peer group benchmarking — 8-15 comparable companies"]:::yellow
+    N8b["8b: TAM and SAM market sizing model"]:::yellow
+    N8c["8c: Porters Five Forces framework"]:::yellow
+    N8d["8d: Economic moat and competitive advantage analysis"]:::yellow
+
+    S9["Step 9: Research Synthesis"]:::phase
+    N9a["9a: Research notes and memo compilation"]:::green
+    N9b["9b: Industry thesis and investment context drafted"]:::yellow
+    N9c["9c: Key debates and variant view vs consensus identified"]:::green
+
+    TITLE --> S5
+    S5 --> N5a & N5b & N5c & N5d
+    N5a & N5b & N5c & N5d --> S6
+    S6 --> N6a & N6b & N6c & N6d
+    N6a & N6b & N6c & N6d --> S7
+    S7 --> N7a --> N7b & N7c & N7d
+    N7b & N7c & N7d --> S8
+    S8 --> N8a & N8b & N8c & N8d
+    N8a & N8b & N8c & N8d --> S9
+    S9 --> N9a & N9b & N9c
+  </div>
+  <textarea id="code-2" style="display:none">flowchart TD
+    classDef green fill:#C6EFCE,stroke:#006100,color:#006100,stroke-width:2px
+    classDef yellow fill:#FFEB9C,stroke:#9C6500,color:#9C6500,stroke-width:2px
+    classDef orange fill:#FCE4D6,stroke:#833C00,color:#833C00,stroke-width:2px
+    classDef ext fill:#EDEDED,stroke:#595959,color:#595959,stroke-width:2px
+    classDef phase fill:#2E4057,stroke:#2E4057,color:#FFFFFF,stroke-width:2px
+    classDef gate fill:#3B5998,stroke:#3B5998,color:#FFFFFF,stroke-width:2px
+
+    TITLE["P2: Research and Due Diligence — Steps 9-27"]:::phase
+    style TITLE fill:#1A4D3A,stroke:#1A4D3A,color:#FFFFFF
+
+    S5["Step 5: Desk Research Foundation"]:::phase
+    N5a["5a: Download all SEC filings — 10-K, 10-Q, 8-K, proxy"]:::green
+    N5b["5b: Compile earnings call transcript library — 5+ years"]:::green
+    N5c["5c: Aggregate third-party industry reports — Gartner, IBISWorld"]:::green
+    N5d["5d: Compile sell-side prior coverage if available"]:::green
+
+    S6["Step 6: Management Access"]:::phase
+    N6a["6a: Introductory call with Investor Relations — intro only"]:::orange
+    N6b["6b: C-suite meeting — CEO, CFO, COO deep-dive"]:::orange
+    N6c["6c: Segment head meetings — business unit level detail"]:::orange
+    N6d["6d: Capital allocation and strategy session"]:::orange
+
+    S7["Step 7: Expert Network Diligence"]:::phase
+    N7a["7a: Compliance pre-clears all expert calls — MNPI screen"]:::ext
+    N7b["7b: GLG or Gerson Lehrman expert calls — former executives"]:::orange
+    N7c["7c: Channel checks — distributors, customers, competitors"]:::orange
+    N7d["7d: Industry conference one-on-one meetings"]:::orange
+
+    S8["Step 8: Competitive and Sector Analysis"]:::phase
+    N8a["8a: Peer group benchmarking — 8-15 comparable companies"]:::yellow
+    N8b["8b: TAM and SAM market sizing model"]:::yellow
+    N8c["8c: Porters Five Forces framework"]:::yellow
+    N8d["8d: Economic moat and competitive advantage analysis"]:::yellow
+
+    S9["Step 9: Research Synthesis"]:::phase
+    N9a["9a: Research notes and memo compilation"]:::green
+    N9b["9b: Industry thesis and investment context drafted"]:::yellow
+    N9c["9c: Key debates and variant view vs consensus identified"]:::green
+
+    TITLE --> S5
+    S5 --> N5a & N5b & N5c & N5d
+    N5a & N5b & N5c & N5d --> S6
+    S6 --> N6a & N6b & N6c & N6d
+    N6a & N6b & N6c & N6d --> S7
+    S7 --> N7a --> N7b & N7c & N7d
+    N7b & N7c & N7d --> S8
+    S8 --> N8a & N8b & N8c & N8d
+    N8a & N8b & N8c & N8d --> S9
+    S9 --> N9a & N9b & N9c</textarea>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════
+     CHART 3: P3 FINANCIAL MODELING
+═══════════════════════════════════════════════════════ -->
+<div class="chart-section" id="chart-3" style="border-left-color:#7B4F00">
+  <h2><button class="copy-btn" onclick="copyChart(3)">Copy Mermaid Code</button><span class="ph-badge" style="background:#7B4F00">P3</span>Financial Modeling <span style="font-size:13px;color:#888;font-weight:normal">(5G / 9Y / 2O / 1E — 17 steps)</span></h2>
+  <div class="chart-meta">Weeks 4–7 &nbsp;·&nbsp; Lead Analyst + Associate primary &nbsp;·&nbsp; Model sign-off by Research Director required before report writing begins</div>
+  <div class="mermaid" id="mermaid-3">
+flowchart TD
+    classDef green fill:#C6EFCE,stroke:#006100,color:#006100,stroke-width:2px
+    classDef yellow fill:#FFEB9C,stroke:#9C6500,color:#9C6500,stroke-width:2px
+    classDef orange fill:#FCE4D6,stroke:#833C00,color:#833C00,stroke-width:2px
+    classDef ext fill:#EDEDED,stroke:#595959,color:#595959,stroke-width:2px
+    classDef phase fill:#2E4057,stroke:#2E4057,color:#FFFFFF,stroke-width:2px
+    classDef gate fill:#3B5998,stroke:#3B5998,color:#FFFFFF,stroke-width:2px
+
+    TITLE["P3: Financial Modeling — Steps 28-44"]:::phase
+    style TITLE fill:#7B4F00,stroke:#7B4F00,color:#FFFFFF
+
+    S10["Step 10: Master Workbook Setup"]:::phase
+    N10a["10a: Associate creates master Excel workbook structure"]:::green
+    N10b["10b: Source data tabs linked to SEC filings"]:::green
+
+    S11["Step 11: Historical Normalization"]:::phase
+    N11a["11a: 5-year historical income statement extraction"]:::green
+    N11b["11b: Balance sheet and cash flow extraction"]:::green
+    N11c["11c: Segment disaggregation and revenue bridge"]:::yellow
+    N11d["11d: Non-GAAP reconciliation and adjustments"]:::yellow
+
+    S12["Step 12: Projection Model"]:::phase
+    N12a["12a: KPI and driver framework construction"]:::yellow
+    N12b["12b: 3-5 year income statement projection"]:::yellow
+    N12c["12c: Balance sheet and cash flow projection"]:::yellow
+    N12d["12d: Bull, Base, and Bear scenario framework"]:::yellow
+
+    S13["Step 13: Valuation Framework"]:::phase
+    N13a["13a: DCF model with WACC and terminal value derivation"]:::yellow
+    N13b["13b: EV/EBITDA and P/E trading comps table — automated"]:::green
+    N13c["13c: Precedent transaction multiples table"]:::green
+    N13d["13d: Price target derivation and methodology memo"]:::yellow
+    N13e["13e: Analyst reviews and signs off on valuation"]:::orange
+
+    G2{{"GATE 2: Model and Valuation Sign-Off by Research Director"}}:::gate
+    N13f["Note: Director reviews model logic, scenario assumptions, and PT methodology"]:::ext
+
+    TITLE --> S10
+    S10 --> N10a & N10b
+    N10a & N10b --> S11
+    S11 --> N11a & N11b & N11c & N11d
+    N11a & N11b & N11c & N11d --> S12
+    S12 --> N12a --> N12b --> N12c --> N12d
+    N12d --> S13
+    S13 --> N13a & N13b & N13c
+    N13a & N13b & N13c --> N13d --> N13e --> G2
+    G2 --> N13f
+  </div>
+  <textarea id="code-3" style="display:none">flowchart TD
+    classDef green fill:#C6EFCE,stroke:#006100,color:#006100,stroke-width:2px
+    classDef yellow fill:#FFEB9C,stroke:#9C6500,color:#9C6500,stroke-width:2px
+    classDef orange fill:#FCE4D6,stroke:#833C00,color:#833C00,stroke-width:2px
+    classDef ext fill:#EDEDED,stroke:#595959,color:#595959,stroke-width:2px
+    classDef phase fill:#2E4057,stroke:#2E4057,color:#FFFFFF,stroke-width:2px
+    classDef gate fill:#3B5998,stroke:#3B5998,color:#FFFFFF,stroke-width:2px
+
+    TITLE["P3: Financial Modeling — Steps 28-44"]:::phase
+    style TITLE fill:#7B4F00,stroke:#7B4F00,color:#FFFFFF
+
+    S10["Step 10: Master Workbook Setup"]:::phase
+    N10a["10a: Associate creates master Excel workbook structure"]:::green
+    N10b["10b: Source data tabs linked to SEC filings"]:::green
+
+    S11["Step 11: Historical Normalization"]:::phase
+    N11a["11a: 5-year historical income statement extraction"]:::green
+    N11b["11b: Balance sheet and cash flow extraction"]:::green
+    N11c["11c: Segment disaggregation and revenue bridge"]:::yellow
+    N11d["11d: Non-GAAP reconciliation and adjustments"]:::yellow
+
+    S12["Step 12: Projection Model"]:::phase
+    N12a["12a: KPI and driver framework construction"]:::yellow
+    N12b["12b: 3-5 year income statement projection"]:::yellow
+    N12c["12c: Balance sheet and cash flow projection"]:::yellow
+    N12d["12d: Bull, Base, and Bear scenario framework"]:::yellow
+
+    S13["Step 13: Valuation Framework"]:::phase
+    N13a["13a: DCF model with WACC and terminal value derivation"]:::yellow
+    N13b["13b: EV/EBITDA and P/E trading comps table — automated"]:::green
+    N13c["13c: Precedent transaction multiples table"]:::green
+    N13d["13d: Price target derivation and methodology memo"]:::yellow
+    N13e["13e: Analyst reviews and signs off on valuation"]:::orange
+
+    G2{{"GATE 2: Model and Valuation Sign-Off by Research Director"}}:::gate
+    N13f["Note: Director reviews model logic, scenario assumptions, and PT methodology"]:::ext
+
+    TITLE --> S10
+    S10 --> N10a & N10b
+    N10a & N10b --> S11
+    S11 --> N11a & N11b & N11c & N11d
+    N11a & N11b & N11c & N11d --> S12
+    S12 --> N12a --> N12b --> N12c --> N12d
+    N12d --> S13
+    S13 --> N13a & N13b & N13c
+    N13a & N13b & N13c --> N13d --> N13e --> G2
+    G2 --> N13f</textarea>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════
+     CHART 4: P4 REPORT WRITING
+═══════════════════════════════════════════════════════ -->
+<div class="chart-section" id="chart-4" style="border-left-color:#3D1A66">
+  <h2><button class="copy-btn" onclick="copyChart(4)">Copy Mermaid Code</button><span class="ph-badge" style="background:#3D1A66">P4</span>Report Writing <span style="font-size:13px;color:#888;font-weight:normal">(5G / 7Y / 0O / 0E — 12 steps)</span></h2>
+  <div class="chart-meta">Weeks 6–9 &nbsp;·&nbsp; Lead Analyst primary, Associate support &nbsp;·&nbsp; Analyst controls thesis independently; no pre-release to banking or IR</div>
+  <div class="mermaid" id="mermaid-4">
+flowchart TD
+    classDef green fill:#C6EFCE,stroke:#006100,color:#006100,stroke-width:2px
+    classDef yellow fill:#FFEB9C,stroke:#9C6500,color:#9C6500,stroke-width:2px
+    classDef orange fill:#FCE4D6,stroke:#833C00,color:#833C00,stroke-width:2px
+    classDef ext fill:#EDEDED,stroke:#595959,color:#595959,stroke-width:2px
+    classDef phase fill:#2E4057,stroke:#2E4057,color:#FFFFFF,stroke-width:2px
+    classDef gate fill:#3B5998,stroke:#3B5998,color:#FFFFFF,stroke-width:2px
+
+    TITLE["P4: Report Writing — Steps 45-56"]:::phase
+    style TITLE fill:#3D1A66,stroke:#3D1A66,color:#FFFFFF
+
+    S14["Step 14: Investment Thesis Construction"]:::phase
+    N14a["14a: Variant view identified vs sell-side consensus"]:::yellow
+    N14b["14b: Bull, Base, Bear thesis written with distinct catalysts"]:::yellow
+    N14c["14c: Catalyst map — near-term and long-term events identified"]:::yellow
+
+    S15["Step 15: Full Report Narrative Draft"]:::phase
+    N15a["15a: Company overview and business model section"]:::yellow
+    N15b["15b: Industry and competitive positioning section"]:::yellow
+    N15c["15c: Risk factors section — regulatory, operational, financial"]:::green
+    N15d["15d: ESG and governance section"]:::yellow
+
+    S16["Step 16: Financial Exhibits and Charts"]:::phase
+    N16a["16a: Comparable company trading comps table — automated"]:::green
+    N16b["16b: Valuation bridge and football field chart"]:::green
+    N16c["16c: Margin waterfall and KPI trend charts"]:::green
+    N16d["16d: Earnings model summary exhibit"]:::green
+
+    S17["Step 17: Final Draft Assembly"]:::phase
+    N17a["17a: Full report assembled with all sections and exhibits"]:::yellow
+
+    TITLE --> S14
+    S14 --> N14a & N14b & N14c
+    N14a & N14b & N14c --> S15
+    S15 --> N15a --> N15b --> N15c --> N15d
+    N15d --> S16
+    S16 --> N16a & N16b & N16c & N16d
+    N16a & N16b & N16c & N16d --> S17
+    S17 --> N17a
+  </div>
+  <textarea id="code-4" style="display:none">flowchart TD
+    classDef green fill:#C6EFCE,stroke:#006100,color:#006100,stroke-width:2px
+    classDef yellow fill:#FFEB9C,stroke:#9C6500,color:#9C6500,stroke-width:2px
+    classDef orange fill:#FCE4D6,stroke:#833C00,color:#833C00,stroke-width:2px
+    classDef ext fill:#EDEDED,stroke:#595959,color:#595959,stroke-width:2px
+    classDef phase fill:#2E4057,stroke:#2E4057,color:#FFFFFF,stroke-width:2px
+    classDef gate fill:#3B5998,stroke:#3B5998,color:#FFFFFF,stroke-width:2px
+
+    TITLE["P4: Report Writing — Steps 45-56"]:::phase
+    style TITLE fill:#3D1A66,stroke:#3D1A66,color:#FFFFFF
+
+    S14["Step 14: Investment Thesis Construction"]:::phase
+    N14a["14a: Variant view identified vs sell-side consensus"]:::yellow
+    N14b["14b: Bull, Base, Bear thesis written with distinct catalysts"]:::yellow
+    N14c["14c: Catalyst map — near-term and long-term events identified"]:::yellow
+
+    S15["Step 15: Full Report Narrative Draft"]:::phase
+    N15a["15a: Company overview and business model section"]:::yellow
+    N15b["15b: Industry and competitive positioning section"]:::yellow
+    N15c["15c: Risk factors section — regulatory, operational, financial"]:::green
+    N15d["15d: ESG and governance section"]:::yellow
+
+    S16["Step 16: Financial Exhibits and Charts"]:::phase
+    N16a["16a: Comparable company trading comps table — automated"]:::green
+    N16b["16b: Valuation bridge and football field chart"]:::green
+    N16c["16c: Margin waterfall and KPI trend charts"]:::green
+    N16d["16d: Earnings model summary exhibit"]:::green
+
+    S17["Step 17: Final Draft Assembly"]:::phase
+    N17a["17a: Full report assembled with all sections and exhibits"]:::yellow
+
+    TITLE --> S14
+    S14 --> N14a & N14b & N14c
+    N14a & N14b & N14c --> S15
+    S15 --> N15a --> N15b --> N15c --> N15d
+    N15d --> S16
+    S16 --> N16a & N16b & N16c & N16d
+    N16a & N16b & N16c & N16d --> S17
+    S17 --> N17a</textarea>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════
+     CHART 5: P5 REVIEW & COMPLIANCE
+═══════════════════════════════════════════════════════ -->
+<div class="chart-section" id="chart-5" style="border-left-color:#6B0E1E">
+  <h2><button class="copy-btn" onclick="copyChart(5)">Copy Mermaid Code</button><span class="ph-badge" style="background:#6B0E1E">P5</span>Review &amp; Compliance <span style="font-size:13px;color:#888;font-weight:normal">(1G / 4Y / 7O / 2E — 14 steps)</span></h2>
+  <div class="chart-meta">Weeks 8–10 &nbsp;·&nbsp; Supervisory Analyst + Compliance primary &nbsp;·&nbsp; FINRA Rule 2241 governs all review; no report may publish without Compliance sign-off</div>
+  <div class="mermaid" id="mermaid-5">
+flowchart TD
+    classDef green fill:#C6EFCE,stroke:#006100,color:#006100,stroke-width:2px
+    classDef yellow fill:#FFEB9C,stroke:#9C6500,color:#9C6500,stroke-width:2px
+    classDef orange fill:#FCE4D6,stroke:#833C00,color:#833C00,stroke-width:2px
+    classDef ext fill:#EDEDED,stroke:#595959,color:#595959,stroke-width:2px
+    classDef phase fill:#2E4057,stroke:#2E4057,color:#FFFFFF,stroke-width:2px
+    classDef gate fill:#3B5998,stroke:#3B5998,color:#FFFFFF,stroke-width:2px
+
+    TITLE["P5: Review and Compliance — Steps 57-70"]:::phase
+    style TITLE fill:#6B0E1E,stroke:#6B0E1E,color:#FFFFFF
+
+    DRAFT_IN(["Complete draft submitted by Lead Analyst and Associate"]):::phase
+    style DRAFT_IN fill:#6B0E1E,stroke:#6B0E1E,color:#FFFFFF
+
+    S18["Step 18: Supervisory Analyst Review — FINRA 2241(b)(1)"]:::phase
+    N18a["18a: Line-by-line factual accuracy review — all claims sourced"]:::orange
+    N18b["18b: Rating and price target consistency with model verified"]:::orange
+    N18c["18c: Model audit — assumptions and arithmetic checked"]:::yellow
+    N18d["18d: Revisions flagged and returned to analyst"]:::yellow
+
+    S19["Step 19: Compliance Review — Reg AC and FINRA 2241(c)"]:::phase
+    N19a["19a: FINRA 2241 disclosure language reviewed and confirmed"]:::orange
+    N19b["19b: Reg AC certification drafted — analyst signs independently"]:::orange
+    N19c["19c: Conflict of interest disclosures verified"]:::yellow
+    N19d["19d: Rating distribution disclosure appended"]:::green
+
+    S20["Step 20: Rating Committee — Firm Policy"]:::phase
+    N20a["20a: Research Director chairs committee session"]:::orange
+    N20b["20b: Analyst presents thesis and faces formal challenge"]:::orange
+    N20c["20c: Formal rating vote recorded"]:::orange
+
+    S21["Step 21: Final Fact-Check with Company IR"]:::phase
+    N21a["21a: Analyst sends factual claims to IR for number verification"]:::ext
+    N21b["21b: Thesis, rating, and PT remain analyst-controlled — no disclosure"]:::ext
+    N21c["21c: Numbers confirmed against public filings only"]:::yellow
+
+    G3{{"GATE 3: Compliance Sign-Off — Report Cleared for Publication"}}:::gate
+
+    TITLE --> DRAFT_IN --> S18
+    S18 --> N18a & N18b & N18c & N18d
+    N18a & N18b & N18c & N18d --> S19
+    S19 --> N19a & N19b & N19c & N19d
+    N19a & N19b & N19c & N19d --> S20
+    S20 --> N20a --> N20b --> N20c
+    N20c --> S21
+    S21 --> N21a & N21b & N21c
+    N21a & N21b & N21c --> G3
+  </div>
+  <textarea id="code-5" style="display:none">flowchart TD
+    classDef green fill:#C6EFCE,stroke:#006100,color:#006100,stroke-width:2px
+    classDef yellow fill:#FFEB9C,stroke:#9C6500,color:#9C6500,stroke-width:2px
+    classDef orange fill:#FCE4D6,stroke:#833C00,color:#833C00,stroke-width:2px
+    classDef ext fill:#EDEDED,stroke:#595959,color:#595959,stroke-width:2px
+    classDef phase fill:#2E4057,stroke:#2E4057,color:#FFFFFF,stroke-width:2px
+    classDef gate fill:#3B5998,stroke:#3B5998,color:#FFFFFF,stroke-width:2px
+
+    TITLE["P5: Review and Compliance — Steps 57-70"]:::phase
+    style TITLE fill:#6B0E1E,stroke:#6B0E1E,color:#FFFFFF
+
+    DRAFT_IN(["Complete draft submitted by Lead Analyst and Associate"]):::phase
+    style DRAFT_IN fill:#6B0E1E,stroke:#6B0E1E,color:#FFFFFF
+
+    S18["Step 18: Supervisory Analyst Review — FINRA 2241(b)(1)"]:::phase
+    N18a["18a: Line-by-line factual accuracy review — all claims sourced"]:::orange
+    N18b["18b: Rating and price target consistency with model verified"]:::orange
+    N18c["18c: Model audit — assumptions and arithmetic checked"]:::yellow
+    N18d["18d: Revisions flagged and returned to analyst"]:::yellow
+
+    S19["Step 19: Compliance Review — Reg AC and FINRA 2241(c)"]:::phase
+    N19a["19a: FINRA 2241 disclosure language reviewed and confirmed"]:::orange
+    N19b["19b: Reg AC certification drafted — analyst signs independently"]:::orange
+    N19c["19c: Conflict of interest disclosures verified"]:::yellow
+    N19d["19d: Rating distribution disclosure appended"]:::green
+
+    S20["Step 20: Rating Committee — Firm Policy"]:::phase
+    N20a["20a: Research Director chairs committee session"]:::orange
+    N20b["20b: Analyst presents thesis and faces formal challenge"]:::orange
+    N20c["20c: Formal rating vote recorded"]:::orange
+
+    S21["Step 21: Final Fact-Check with Company IR"]:::phase
+    N21a["21a: Analyst sends factual claims to IR for number verification"]:::ext
+    N21b["21b: Thesis, rating, and PT remain analyst-controlled — no disclosure"]:::ext
+    N21c["21c: Numbers confirmed against public filings only"]:::yellow
+
+    G3{{"GATE 3: Compliance Sign-Off — Report Cleared for Publication"}}:::gate
+
+    TITLE --> DRAFT_IN --> S18
+    S18 --> N18a & N18b & N18c & N18d
+    N18a & N18b & N18c & N18d --> S19
+    S19 --> N19a & N19b & N19c & N19d
+    N19a & N19b & N19c & N19d --> S20
+    S20 --> N20a --> N20b --> N20c
+    N20c --> S21
+    S21 --> N21a & N21b & N21c
+    N21a & N21b & N21c --> G3</textarea>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════
+     CHART 6: P6 PUBLICATION & DISTRIBUTION
+═══════════════════════════════════════════════════════ -->
+<div class="chart-section" id="chart-6" style="border-left-color:#004D4D">
+  <h2><button class="copy-btn" onclick="copyChart(6)">Copy Mermaid Code</button><span class="ph-badge" style="background:#004D4D">P6</span>Publication &amp; Distribution <span style="font-size:13px;color:#888;font-weight:normal">(2G / 3Y / 1O / 3E — 9 steps)</span></h2>
+  <div class="chart-meta">Week 10 &nbsp;·&nbsp; Production + Compliance + Sales primary &nbsp;·&nbsp; Simultaneous equal-access distribution to all clients mandatory — FINRA 2241(b)(2)(D)</div>
+  <div class="mermaid" id="mermaid-6">
+flowchart TD
+    classDef green fill:#C6EFCE,stroke:#006100,color:#006100,stroke-width:2px
+    classDef yellow fill:#FFEB9C,stroke:#9C6500,color:#9C6500,stroke-width:2px
+    classDef orange fill:#FCE4D6,stroke:#833C00,color:#833C00,stroke-width:2px
+    classDef ext fill:#EDEDED,stroke:#595959,color:#595959,stroke-width:2px
+    classDef phase fill:#2E4057,stroke:#2E4057,color:#FFFFFF,stroke-width:2px
+    classDef gate fill:#3B5998,stroke:#3B5998,color:#FFFFFF,stroke-width:2px
+
+    TITLE["P6: Publication and Distribution — Steps 71-79"]:::phase
+    style TITLE fill:#004D4D,stroke:#004D4D,color:#FFFFFF
+
+    S22["Step 22: Production and Layout"]:::phase
+    N22a["22a: Production team applies firm template and formatting"]:::yellow
+    N22b["22b: Legal boilerplate, disclosures, and Reg AC appended"]:::green
+    N22c["22c: PDF and digital versions prepared and proofed"]:::green
+
+    S23["Step 23: Equal-Access Distribution"]:::phase
+    N23a["23a: Bloomberg, Refinitiv, FactSet upload — simultaneous"]:::ext
+    N23b["23b: Proprietary client portal update"]:::yellow
+    N23c["23c: FINRA filing if required — Rule 2241(b)(2)(D) confirmed"]:::ext
+
+    S24["Step 24: Sales Force Education"]:::phase
+    N24a["24a: Analyst presents on morning call — report public first"]:::orange
+    N24b["24b: Sales memo and talking points drafted by analyst"]:::yellow
+    N24c["24c: Q and A prep sheet distributed to sales team"]:::ext
+
+    G4{{"GATE 4: Equal-Access Distribution Confirmed by Compliance"}}:::gate
+
+    TITLE --> S22
+    S22 --> N22a --> N22b --> N22c
+    N22c --> S23
+    S23 --> N23a & N23b & N23c
+    N23a & N23b & N23c --> S24
+    S24 --> N24a & N24b & N24c
+    N24a & N24b & N24c --> G4
+  </div>
+  <textarea id="code-6" style="display:none">flowchart TD
+    classDef green fill:#C6EFCE,stroke:#006100,color:#006100,stroke-width:2px
+    classDef yellow fill:#FFEB9C,stroke:#9C6500,color:#9C6500,stroke-width:2px
+    classDef orange fill:#FCE4D6,stroke:#833C00,color:#833C00,stroke-width:2px
+    classDef ext fill:#EDEDED,stroke:#595959,color:#595959,stroke-width:2px
+    classDef phase fill:#2E4057,stroke:#2E4057,color:#FFFFFF,stroke-width:2px
+    classDef gate fill:#3B5998,stroke:#3B5998,color:#FFFFFF,stroke-width:2px
+
+    TITLE["P6: Publication and Distribution — Steps 71-79"]:::phase
+    style TITLE fill:#004D4D,stroke:#004D4D,color:#FFFFFF
+
+    S22["Step 22: Production and Layout"]:::phase
+    N22a["22a: Production team applies firm template and formatting"]:::yellow
+    N22b["22b: Legal boilerplate, disclosures, and Reg AC appended"]:::green
+    N22c["22c: PDF and digital versions prepared and proofed"]:::green
+
+    S23["Step 23: Equal-Access Distribution"]:::phase
+    N23a["23a: Bloomberg, Refinitiv, FactSet upload — simultaneous"]:::ext
+    N23b["23b: Proprietary client portal update"]:::yellow
+    N23c["23c: FINRA filing if required — Rule 2241(b)(2)(D) confirmed"]:::ext
+
+    S24["Step 24: Sales Force Education"]:::phase
+    N24a["24a: Analyst presents on morning call — report public first"]:::orange
+    N24b["24b: Sales memo and talking points drafted by analyst"]:::yellow
+    N24c["24c: Q and A prep sheet distributed to sales team"]:::ext
+
+    G4{{"GATE 4: Equal-Access Distribution Confirmed by Compliance"}}:::gate
+
+    TITLE --> S22
+    S22 --> N22a --> N22b --> N22c
+    N22c --> S23
+    S23 --> N23a & N23b & N23c
+    N23a & N23b & N23c --> S24
+    S24 --> N24a & N24b & N24c
+    N24a & N24b & N24c --> G4</textarea>
+</div>
+
+<!-- ═══════════════════════════════════════════════════════
+     CHART 7: P7 POST-PUBLICATION & MAINTENANCE
+═══════════════════════════════════════════════════════ -->
+<div class="chart-section" id="chart-7" style="border-left-color:#2D3748">
+  <h2><button class="copy-btn" onclick="copyChart(7)">Copy Mermaid Code</button><span class="ph-badge" style="background:#2D3748">P7</span>Post-Publication &amp; Maintenance <span style="font-size:13px;color:#888;font-weight:normal">(1G / 3Y / 3O / 0E — 7 steps)</span></h2>
+  <div class="chart-meta">Ongoing after Week 10 &nbsp;·&nbsp; Lead Analyst + Sales Force primary &nbsp;·&nbsp; All client communications must be consistent with published report; same compliance framework applies</div>
+  <div class="mermaid" id="mermaid-7">
+flowchart TD
+    classDef green fill:#C6EFCE,stroke:#006100,color:#006100,stroke-width:2px
+    classDef yellow fill:#FFEB9C,stroke:#9C6500,color:#9C6500,stroke-width:2px
+    classDef orange fill:#FCE4D6,stroke:#833C00,color:#833C00,stroke-width:2px
+    classDef ext fill:#EDEDED,stroke:#595959,color:#595959,stroke-width:2px
+    classDef phase fill:#2E4057,stroke:#2E4057,color:#FFFFFF,stroke-width:2px
+    classDef gate fill:#3B5998,stroke:#3B5998,color:#FFFFFF,stroke-width:2px
+
+    TITLE["P7: Post-Publication and Maintenance — Steps 80-86"]:::phase
+    style TITLE fill:#2D3748,stroke:#2D3748,color:#FFFFFF
+
+    S25["Step 25: Client Roadshow and NDR"]:::phase
+    N25a["25a: Institutional Sales coordinates portfolio manager one-on-ones"]:::orange
+    N25b["25b: Analyst leads group calls and Q and A sessions"]:::orange
+    N25c["25c: All views remain consistent with published report"]:::orange
+
+    S26["Step 26: Coverage Maintenance — FINRA 2241(c)(4)"]:::phase
+    N26a["26a: Quarterly earnings model updates — post each release"]:::yellow
+    N26b["26b: Quarterly notes and quick-take drafts"]:::yellow
+    N26c["26c: Rating or price target change — full compliance re-cycle"]:::yellow
+    N26d["26d: Flash notes for material intraday events — same day"]:::green
+
+    TITLE --> S25
+    S25 --> N25a & N25b & N25c
+    N25a & N25b & N25c --> S26
+    S26 --> N26a & N26b & N26c & N26d
+  </div>
+  <textarea id="code-7" style="display:none">flowchart TD
+    classDef green fill:#C6EFCE,stroke:#006100,color:#006100,stroke-width:2px
+    classDef yellow fill:#FFEB9C,stroke:#9C6500,color:#9C6500,stroke-width:2px
+    classDef orange fill:#FCE4D6,stroke:#833C00,color:#833C00,stroke-width:2px
+    classDef ext fill:#EDEDED,stroke:#595959,color:#595959,stroke-width:2px
+    classDef phase fill:#2E4057,stroke:#2E4057,color:#FFFFFF,stroke-width:2px
+    classDef gate fill:#3B5998,stroke:#3B5998,color:#FFFFFF,stroke-width:2px
+
+    TITLE["P7: Post-Publication and Maintenance — Steps 80-86"]:::phase
+    style TITLE fill:#2D3748,stroke:#2D3748,color:#FFFFFF
+
+    S25["Step 25: Client Roadshow and NDR"]:::phase
+    N25a["25a: Institutional Sales coordinates portfolio manager one-on-ones"]:::orange
+    N25b["25b: Analyst leads group calls and Q and A sessions"]:::orange
+    N25c["25c: All views remain consistent with published report"]:::orange
+
+    S26["Step 26: Coverage Maintenance — FINRA 2241(c)(4)"]:::phase
+    N26a["26a: Quarterly earnings model updates — post each release"]:::yellow
+    N26b["26b: Quarterly notes and quick-take drafts"]:::yellow
+    N26c["26c: Rating or price target change — full compliance re-cycle"]:::yellow
+    N26d["26d: Flash notes for material intraday events — same day"]:::green
+
+    TITLE --> S25
+    S25 --> N25a & N25b & N25c
+    N25a & N25b & N25c --> S26
+    S26 --> N26a & N26b & N26c & N26d</textarea>
+</div>
+
+<!-- Scripts -->
+<script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
+<script>
+  mermaid.initialize({
+    startOnLoad: true,
+    theme: 'base',
+    themeVariables: {
+      primaryColor: '#2E4057',
+      primaryTextColor: '#FFFFFF',
+      primaryBorderColor: '#1a2633',
+      lineColor: '#888888',
+      secondaryColor: '#f0f2f5',
+      tertiaryColor: '#ffffff',
+      background: '#ffffff',
+      nodeBorder: '#888888',
+      clusterBkg: '#f5f7fa',
+      clusterBorder: '#ccd0d9',
+      edgeLabelBackground: '#f0f2f5',
+      fontFamily: 'Arial, sans-serif',
+      fontSize: '13px'
+    },
+    flowchart: { htmlLabels: true, curve: 'basis' }
+  });
+
+  function copyChart(idx) {
+    var code = document.getElementById('code-' + idx).value;
+    if (navigator.clipboard) {
+      navigator.clipboard.writeText(code).then(function() {
+        var btn = event.target;
+        var orig = btn.textContent;
+        btn.textContent = 'Copied!';
+        btn.style.background = '#e6f4ea';
+        btn.style.color = '#006100';
+        setTimeout(function() {
+          btn.textContent = orig;
+          btn.style.background = '';
+          btn.style.color = '';
+        }, 1500);
+      });
+    } else {
+      var ta = document.getElementById('code-' + idx);
+      ta.style.display = 'block';
+      ta.select();
+      document.execCommand('copy');
+      ta.style.display = 'none';
+    }
+  }
+</script>
+
+</body>
+</html>
