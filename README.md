@@ -217,7 +217,7 @@ Four formal gates exist in the workflow. No phase may proceed without the preced
 | **Gate 1 — IB Wall Confirmed** | P1 → P2 | Compliance + Research Director | No active mandate conflict; analyst registered; trading restrictions applied |
 | **Gate 2 — Model Sign-Off** | P3 → P4 | Research Director | Model logic, scenario assumptions, and PT methodology approved |
 | **Gate 3 — Compliance Sign-Off** | P5 → P6 | Supervisory Analyst + Compliance | FINRA 2241 checklist complete; Reg AC signed; rating committee vote recorded |
-| **Gate 4 — Distribution Confirmed** | P6 → P7 | Compliance | Simultaneous equal-access distribution to all clients verified per FINRA 2241(b)(2)(D) |
+| **Gate 4 — Distribution Confirmed** | P6 → P7 | Compliance | Simultaneous equal-access distribution to all clients verified per FINRA 2241(g) |
 
 ---
 
