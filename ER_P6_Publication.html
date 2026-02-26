@@ -39,7 +39,7 @@
 <body>
 
 <h1 style="color:#004D4D"><span style="font-size:18px;opacity:.7">Equity Research Coverage Initiation</span><br>P6: Publication & Distribution</h1>
-<p class="subtitle" style="color:#004D4D">Steps 71–79 &nbsp;·&nbsp; Week 10 &nbsp;·&nbsp; 2G / 3Y / 1O / 3E — 9 steps</p>
+<p class="subtitle" style="color:#004D4D">Steps 65–72 &nbsp;·&nbsp; Week 10 &nbsp;·&nbsp; 2G / 3Y / 1O / 3E — 9 steps</p>
 <p class="version-note">February 2026 &mdash; Part of the 7-phase coverage initiation workflow</p>
 
 <div class="legend">
@@ -73,9 +73,10 @@ flowchart TD
     classDef phase fill:#2E4057,stroke:#2E4057,color:#FFFFFF,stroke-width:2px
     classDef gate fill:#3B5998,stroke:#3B5998,color:#FFFFFF,stroke-width:2px
 
-    TITLE["P6: Publication and Distribution — Steps 71-79"]:::phase
+    TITLE["P6: Publication and Distribution — Steps 65-72"]:::phase
     style TITLE fill:#004D4D,stroke:#004D4D,color:#FFFFFF
 
+    N65["S65: Supervisory Analyst submits approved report package to Production"]:::orange
     S22["Step 22: Production and Layout"]:::phase
     N22a["22a: Production team applies firm template and formatting"]:::yellow
     N22b["22b: Legal boilerplate, disclosures, and Reg AC appended"]:::green
@@ -83,8 +84,9 @@ flowchart TD
 
     S23["Step 23: Equal-Access Distribution"]:::phase
     N23a["23a: Bloomberg, Refinitiv, FactSet upload — simultaneous"]:::ext
+    N70["S70: Upload consensus estimates to Refinitiv IBES and Bloomberg"]:::ext
     N23b["23b: Proprietary client portal update"]:::yellow
-    N23c["23c: FINRA Rule 2241(g) confirmed"]:::ext
+    N23c["23c: FINRA filing if required — Rule 2241(g) confirmed"]:::ext
 
     S24["Step 24: Sales Force Education"]:::phase
     N24a["24a: Analyst presents on morning call — report public first"]:::orange
@@ -93,10 +95,11 @@ flowchart TD
 
     G4{{"GATE 4: Equal-Access Distribution Confirmed by Compliance"}}:::gate
 
-    TITLE --> S22
+    TITLE --> N65
+    N65 --> S22
     S22 --> N22a --> N22b --> N22c
     N22c --> S23
-    S23 --> N23a & N23b & N23c
+    S23 --> N23a & N70 & N23b & N23c
     N23a & N23b & N23c --> S24
     S24 --> N24a & N24b & N24c
     N24a & N24b & N24c --> G4
@@ -109,9 +112,10 @@ flowchart TD
     classDef phase fill:#2E4057,stroke:#2E4057,color:#FFFFFF,stroke-width:2px
     classDef gate fill:#3B5998,stroke:#3B5998,color:#FFFFFF,stroke-width:2px
 
-    TITLE["P6: Publication and Distribution — Steps 71-79"]:::phase
+    TITLE["P6: Publication and Distribution — Steps 65-72"]:::phase
     style TITLE fill:#004D4D,stroke:#004D4D,color:#FFFFFF
 
+    N65["S65: Supervisory Analyst submits approved report package to Production"]:::orange
     S22["Step 22: Production and Layout"]:::phase
     N22a["22a: Production team applies firm template and formatting"]:::yellow
     N22b["22b: Legal boilerplate, disclosures, and Reg AC appended"]:::green
@@ -119,8 +123,9 @@ flowchart TD
 
     S23["Step 23: Equal-Access Distribution"]:::phase
     N23a["23a: Bloomberg, Refinitiv, FactSet upload — simultaneous"]:::ext
+    N70["S70: Upload consensus estimates to Refinitiv IBES and Bloomberg"]:::ext
     N23b["23b: Proprietary client portal update"]:::yellow
-    N23c["23c: FINRA Rule 2241(g) confirmed"]:::ext
+    N23c["23c: FINRA filing if required — Rule 2241(g) confirmed"]:::ext
 
     S24["Step 24: Sales Force Education"]:::phase
     N24a["24a: Analyst presents on morning call — report public first"]:::orange
@@ -129,10 +134,11 @@ flowchart TD
 
     G4{{"GATE 4: Equal-Access Distribution Confirmed by Compliance"}}:::gate
 
-    TITLE --> S22
+    TITLE --> N65
+    N65 --> S22
     S22 --> N22a --> N22b --> N22c
     N22c --> S23
-    S23 --> N23a & N23b & N23c
+    S23 --> N23a & N70 & N23b & N23c
     N23a & N23b & N23c --> S24
     S24 --> N24a & N24b & N24c
     N24a & N24b & N24c --> G4</textarea>
