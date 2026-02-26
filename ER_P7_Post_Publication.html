@@ -39,7 +39,7 @@
 <body>
 
 <h1 style="color:#2D3748"><span style="font-size:18px;opacity:.7">Equity Research Coverage Initiation</span><br>P7: Post-Publication & Maintenance</h1>
-<p class="subtitle" style="color:#2D3748">Steps 80–86 &nbsp;·&nbsp; Ongoing &nbsp;·&nbsp; 1G / 3Y / 3O / 0E — 7 steps</p>
+<p class="subtitle" style="color:#2D3748">Steps 73–86 &nbsp;·&nbsp; Ongoing &nbsp;·&nbsp; 1G / 2Y / 4O / 1E — 9 steps</p>
 <p class="version-note">February 2026 &mdash; Part of the 7-phase coverage initiation workflow</p>
 
 <div class="legend">
@@ -62,7 +62,7 @@
 </div>
 
 <div class="chart-section" style="border-left: 6px solid #2D3748">
-  <h2 style="color:#2D3748"><button class="copy-btn" onclick="copyChart()">Copy Mermaid Code</button><span class="ph-badge" style="background:#2D3748">P7</span>Post-Publication & Maintenance <span style="font-size:13px;color:#888;font-weight:normal">(1G / 3Y / 3O / 0E — 7 steps)</span></h2>
+  <h2 style="color:#2D3748"><button class="copy-btn" onclick="copyChart()">Copy Mermaid Code</button><span class="ph-badge" style="background:#2D3748">P7</span>Post-Publication & Maintenance <span style="font-size:13px;color:#888;font-weight:normal">(1G / 2Y / 4O / 1E — 9 steps)</span></h2>
   <div class="chart-meta">Ongoing after Week 10 &nbsp;·&nbsp; Lead Analyst + Sales Force primary &nbsp;·&nbsp; All client communications must be consistent with published report; same compliance framework applies</div>
   <div class="mermaid" id="mermaid-main">
 flowchart TD
@@ -73,7 +73,7 @@ flowchart TD
     classDef phase fill:#2E4057,stroke:#2E4057,color:#FFFFFF,stroke-width:2px
     classDef gate fill:#3B5998,stroke:#3B5998,color:#FFFFFF,stroke-width:2px
 
-    TITLE["P7: Post-Publication and Maintenance — Steps 80-86"]:::phase
+    TITLE["P7: Post-Publication and Maintenance — Steps 73-86"]:::phase
     style TITLE fill:#2D3748,stroke:#2D3748,color:#FFFFFF
 
     S25["Step 25: Client Roadshow and NDR"]:::phase
@@ -81,16 +81,29 @@ flowchart TD
     N25b["25b: Analyst leads group calls and Q and A sessions"]:::orange
     N25c["25c: All views remain consistent with published report"]:::orange
 
-    S26["Step 26: Coverage Maintenance — FINRA 2241(c)"]:::phase
-    N26a["26a: Quarterly earnings model updates — post each release"]:::yellow
-    N26b["26b: Quarterly notes and quick-take drafts"]:::yellow
-    N26c["26c: Rating or price target change — full compliance re-cycle"]:::yellow
-    N26d["26d: Flash notes for material intraday events — same day"]:::green
+    S26["Step 26: Coverage Maintenance — FINRA 2241(c); 2241(f)"]:::phase
+    N26a["S78-S80: Quarterly model updates, earnings previews, post-earnings updates"]:::yellow
+    N26b["S81-S83: Catalyst notes, rating or PT changes, sector updates"]:::yellow
+    N26c["S79: Flash notes for material intraday events — same day"]:::green
+
+    GATE4{"S84: Annual Coverage Review — RD reviews thesis and allocation"}:::gate
+    DEC85(["S85: Continue coverage?"]):::gate
+    S86["S86: Drop Coverage — FINRA 2241(f)"]:::phase
+    N86a["S86a: Dropping Coverage note — comparable scope to initiation report required"]:::orange
+    N86b["S86b: Compliance notification and IBES/Bloomberg estimate removal"]:::ext
+    BLOCKED(["Coverage Terminated"])
+    style BLOCKED fill:#FFC7CE,stroke:#9C0006,color:#9C0006
 
     TITLE --> S25
     S25 --> N25a & N25b & N25c
     N25a & N25b & N25c --> S26
-    S26 --> N26a & N26b & N26c & N26d
+    S26 --> N26a & N26b & N26c
+    N26a & N26b & N26c --> GATE4
+    GATE4 --> DEC85
+    DEC85 -->|Continue| S26
+    DEC85 -->|Terminate| S86
+    S86 --> N86a & N86b
+    N86a & N86b --> BLOCKED
   </div>
   <textarea id="code-main" style="display:none">flowchart TD
     classDef green fill:#C6EFCE,stroke:#006100,color:#006100,stroke-width:2px
@@ -100,7 +113,7 @@ flowchart TD
     classDef phase fill:#2E4057,stroke:#2E4057,color:#FFFFFF,stroke-width:2px
     classDef gate fill:#3B5998,stroke:#3B5998,color:#FFFFFF,stroke-width:2px
 
-    TITLE["P7: Post-Publication and Maintenance — Steps 80-86"]:::phase
+    TITLE["P7: Post-Publication and Maintenance — Steps 73-86"]:::phase
     style TITLE fill:#2D3748,stroke:#2D3748,color:#FFFFFF
 
     S25["Step 25: Client Roadshow and NDR"]:::phase
@@ -108,16 +121,29 @@ flowchart TD
     N25b["25b: Analyst leads group calls and Q and A sessions"]:::orange
     N25c["25c: All views remain consistent with published report"]:::orange
 
-    S26["Step 26: Coverage Maintenance — FINRA 2241(c)"]:::phase
-    N26a["26a: Quarterly earnings model updates — post each release"]:::yellow
-    N26b["26b: Quarterly notes and quick-take drafts"]:::yellow
-    N26c["26c: Rating or price target change — full compliance re-cycle"]:::yellow
-    N26d["26d: Flash notes for material intraday events — same day"]:::green
+    S26["Step 26: Coverage Maintenance — FINRA 2241(c); 2241(f)"]:::phase
+    N26a["S78-S80: Quarterly model updates, earnings previews, post-earnings updates"]:::yellow
+    N26b["S81-S83: Catalyst notes, rating or PT changes, sector updates"]:::yellow
+    N26c["S79: Flash notes for material intraday events — same day"]:::green
+
+    GATE4{"S84: Annual Coverage Review — RD reviews thesis and allocation"}:::gate
+    DEC85(["S85: Continue coverage?"]):::gate
+    S86["S86: Drop Coverage — FINRA 2241(f)"]:::phase
+    N86a["S86a: Dropping Coverage note — comparable scope to initiation report required"]:::orange
+    N86b["S86b: Compliance notification and IBES/Bloomberg estimate removal"]:::ext
+    BLOCKED(["Coverage Terminated"])
+    style BLOCKED fill:#FFC7CE,stroke:#9C0006,color:#9C0006
 
     TITLE --> S25
     S25 --> N25a & N25b & N25c
     N25a & N25b & N25c --> S26
-    S26 --> N26a & N26b & N26c & N26d</textarea>
+    S26 --> N26a & N26b & N26c
+    N26a & N26b & N26c --> GATE4
+    GATE4 --> DEC85
+    DEC85 -->|Continue| S26
+    DEC85 -->|Terminate| S86
+    S86 --> N86a & N86b
+    N86a & N86b --> BLOCKED</textarea>
 </div>
 
 <script src="https://cdn.jsdelivr.net/npm/mermaid@10/dist/mermaid.min.js"></script>
